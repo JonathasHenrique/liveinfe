@@ -51,6 +51,7 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
     private var accessToken: String? = null
     private var is1080p: Boolean = true
     private var isChurchAudio: Boolean = true
+    private var isLiveStarted: Boolean = false
 
     // Zoom
     private var currentZoom: Float = 1.0f
@@ -152,6 +153,7 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
                 isChurchAudio = isChurchAudio
             )
             if (prepared) {
+                isLiveStarted = true
                 streamManager.startPreview()
                 if (rtmpUrl.isNotEmpty()) {
                     streamManager.startStream(rtmpUrl)
@@ -439,18 +441,21 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
 
     override fun onResume() {
         super.onResume()
-        try {
-            if (!streamManager.isOnPreview()) {
-                streamManager.startPreview()
+        // Só tenta restaurar se a transmissão já foi inicializada previamente com sucesso
+        if (isLiveStarted && streamManager.isPrepared()) {
+            try {
+                if (!streamManager.isOnPreview()) {
+                    streamManager.startPreview()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
-        // Se o RTMP desconectou enquanto o usuário estava em outro app:
-        if (!streamManager.isStreaming() && rtmpUrl.isNotEmpty()) {
-            showStatusBanner("🔄 Restaurando transmissão...", isAlert = false)
-            streamManager.startStream(rtmpUrl)
+            // Se o RTMP desconectou enquanto o usuário estava em outro app:
+            if (!streamManager.isStreaming() && rtmpUrl.isNotEmpty()) {
+                showStatusBanner("🔄 Restaurando transmissão...", isAlert = false)
+                streamManager.startStream(rtmpUrl)
+            }
         }
     }
 

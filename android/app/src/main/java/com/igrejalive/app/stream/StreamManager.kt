@@ -41,36 +41,10 @@ class StreamManager(
     val audioSampleRate: Int = 48000 // 48kHz (Padrão de mesa de som e YouTube)
     val audioBitrate: Int = 128 * 1024 // 128 kbps AAC Estéreo
 
+    private var isPrepared: Boolean = false
+
     init {
         rtmpCamera = RtmpCamera2(openGlView, connectChecker)
-        setupSurfaceCallback()
-    }
-
-    private fun setupSurfaceCallback() {
-        openGlView.holder.addCallback(object : android.view.SurfaceHolder.Callback {
-            override fun surfaceCreated(holder: android.view.SurfaceHolder) {
-                try {
-                    if (rtmpCamera?.isOnPreview == false) {
-                        rtmpCamera?.startPreview()
-                        applySamsungOptimizations()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun surfaceChanged(holder: android.view.SurfaceHolder, format: Int, width: Int, height: Int) {}
-
-            override fun surfaceDestroyed(holder: android.view.SurfaceHolder) {
-                try {
-                    if (rtmpCamera?.isOnPreview == true) {
-                        rtmpCamera?.stopPreview()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        })
     }
 
     /**
@@ -117,17 +91,23 @@ class StreamManager(
             noiseSuppressor
         ) ?: false
 
-        return videoReady && audioReady
+        isPrepared = videoReady && audioReady
+        return isPrepared
     }
 
     /**
      * Inicia a pré-visualização e ativa estabilização de imagem Samsung (OIS / EIS)
      */
     fun startPreview() {
+        if (!isPrepared) return
         if (rtmpCamera?.isOnPreview == false) {
-            // Inicia usando a câmera traseira principal (Camera 0 do Larix)
-            rtmpCamera?.startPreview()
-            applySamsungOptimizations()
+            try {
+                // Inicia usando a câmera traseira principal (Camera 0 do Larix)
+                rtmpCamera?.startPreview()
+                applySamsungOptimizations()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -164,8 +144,13 @@ class StreamManager(
      * Inicia a transmissão RTMP para o ponto de ingestão do YouTube.
      */
     fun startStream(rtmpEndpointWithKey: String) {
+        if (!isPrepared) return
         if (rtmpCamera?.isStreaming == false) {
-            rtmpCamera?.startStream(rtmpEndpointWithKey)
+            try {
+                rtmpCamera?.startStream(rtmpEndpointWithKey)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -261,6 +246,7 @@ class StreamManager(
 
     fun isStreaming(): Boolean = rtmpCamera?.isStreaming == true
     fun isOnPreview(): Boolean = rtmpCamera?.isOnPreview == true
+    fun isPrepared(): Boolean = isPrepared
 
     fun isFrontCamera(): Boolean = rtmpCamera?.isFrontCamera == true
 
