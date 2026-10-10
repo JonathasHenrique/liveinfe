@@ -109,13 +109,13 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <!-- Botão Copiar Link da Live no YouTube -->
+        <!-- Botão Copiar Link da Live no YouTube (100% Seguro, Não Sai da Tela) -->
         <Button
             android:id="@+id/btnShareLive"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="Link do YouTube"
+            android:text="📋 Copiar Link"
             android:textSize="12sp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#33FFFFFF" />

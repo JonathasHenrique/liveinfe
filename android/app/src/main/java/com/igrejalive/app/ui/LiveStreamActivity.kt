@@ -214,7 +214,7 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
             animateFlashLight(isOn)
         }
 
-        // Compartilhar / Copiar Link do YouTube sem derrubar a live
+        // Botão Copiar Link da Live: 100% SEGURO (NUNCA SAI DA TELA DA LIVE)
         binding.btnShareLive.setOnClickListener {
             val url = watchUrl ?: "https://youtube.com/live"
             
@@ -223,24 +223,15 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
             val clip = ClipData.newPlainText("Link da Transmissão LiveinFé", url)
             clipboard.setPrimaryClip(clip)
 
-            showStatusBanner("📋 LINK COPIADO! Cole no WhatsApp", isAlert = false)
+            // 2. Feedback tátil suave
+            try {
+                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as? android.os.Vibrator
+                vibrator?.vibrate(android.os.VibrationEffect.createOneShot(40, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
+            } catch (ignored: Exception) {}
 
-            // 2. Diálogo seguro com aviso prévio
-            MaterialAlertDialogBuilder(this)
-                .setTitle("🔗 Link da Transmissão Copiado!")
-                .setMessage("O link da live já está na sua área de transferência:\n\n$url\n\nRecomendamos manter o celular nesta tela para não interromper a gravação da câmera. Deseja abrir o WhatsApp agora mesmo?")
-                .setPositiveButton("Manter na Live (Recomendado)") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setNeutralButton("Abrir WhatsApp") { _, _ ->
-                    val sendIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, "Assista ao nosso culto ao vivo: $url")
-                        type = "text/plain"
-                    }
-                    startActivity(Intent.createChooser(sendIntent, "Enviar pelo WhatsApp"))
-                }
-                .show()
+            // 3. Banner animado e Toast sem sair da live
+            showStatusBanner("📋 LINK COPIADO COM SUCESSO!", isAlert = false)
+            Toast.makeText(this, "Link copiado! Cole no WhatsApp quando quiser sem sair da live.", Toast.LENGTH_SHORT).show()
         }
 
         // Botão Encerrar Transmissão

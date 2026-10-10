@@ -471,6 +471,23 @@
             app:iconTint="#FFFFFF"
             app:iconGravity="textStart" />
 
+        <!-- Botão Compartilhar Link do Culto com Antecedência (Seguro no WhatsApp) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShareBeforeLive"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:text="📲 Compartilhar Link do Culto no WhatsApp"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@color/surface_2"
+            app:icon="@android:drawable/ic_menu_share"
+            app:iconTint="@color/tuned_green"
+            app:iconGravity="textStart" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

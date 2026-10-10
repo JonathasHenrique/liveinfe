@@ -203,6 +203,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Botão Compartilhar Link do Culto no WhatsApp com Antecedência (100% Seguro)
+        binding.btnShareBeforeLive.setOnClickListener {
+            val title = binding.etLiveTitle.text?.toString()?.trim() ?: "Culto ao Vivo"
+            val textToSend = "A paz do Senhor! Assista ao nosso $title da Assembleia de Deus ao vivo pelo YouTube:\nhttps://youtube.com/live"
+            
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, textToSend)
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, "Compartilhar Link do Culto"))
+        }
+
         // Modo manual RTMP (Fallback dialog)
         binding.btnManualRtmp.setOnClickListener {
             showManualRtmpDialog()
