@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Chave de Transmissão do YouTube Studio"
                         app:helperText="Cole a chave da igreja (ex: v071-epf1...). Ela fica salva no celular."
-                        app:helperTextColor="@color/text_muted"
+                        app:helperTextTextColor="@color/text_muted"
                         app:boxBackgroundColor="@color/surface_2"
                         app:boxCornerRadiusBottomEnd="12dp"
                         app:boxCornerRadiusBottomStart="12dp"
