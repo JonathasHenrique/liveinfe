@@ -33,13 +33,14 @@ jobs:
 
       - name: Renomear APK para nome oficial LiveinFé
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk liveinfe-v1.0.0.apk
+          REF_TAG="${GITHUB_REF_NAME:-v1.0.1}"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "liveinfe-${REF_TAG}.apk"
 
       - name: Disponibilizar APK para Download (Artefato)
         uses: actions/upload-artifact@v4
         with:
           name: LiveinFe-Android-APK
-          path: liveinfe-v1.0.0.apk
+          path: liveinfe-*.apk
           retention-days: 30
 
   release:
@@ -59,8 +60,8 @@ jobs:
       - name: Criar Release e Anexar APK
         uses: softprops/action-gh-release@v2
         with:
-          files: release-assets/liveinfe-v1.0.0.apk
-          name: "LiveinFé v${{ github.ref_name }}"
+          files: release-assets/liveinfe-*.apk
+          name: "LiveinFé ${{ github.ref_name }}"
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

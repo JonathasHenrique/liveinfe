@@ -15,3 +15,5 @@ local.properties
 # Compiled outputs
 *.apk
 *.aab
+*.zip
+dist/

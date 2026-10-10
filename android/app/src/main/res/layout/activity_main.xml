@@ -133,7 +133,7 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
-        <!-- Card: Canal do YouTube -->
+        <!-- Card: Canal do YouTube / Chave de Transmissão -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,74 +152,159 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CANAL DO YOUTUBE"
+                    android:text="CONEXÃO COM O YOUTUBE"
                     android:textColor="@color/tuned_green"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.08" />
 
-                <LinearLayout
-                    android:id="@+id/layoutChannelInfo"
+                <!-- Seleção do Modo de Conexão -->
+                <RadioGroup
+                    android:id="@+id/rgAuthMode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="12dp"
-                    android:visibility="gone">
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rbModeStreamKey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="🔑 Chave de Transmissão (Sem erros • Fica salva)"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/rbModeGoogleAccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🌐 Conta Google (1 Clique • Requer OAuth Console)"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+                </RadioGroup>
+
+                <!-- Painel 1: Chave de Transmissão (Recomendado) -->
+                <LinearLayout
+                    android:id="@+id/layoutStreamKeyMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Chave de Transmissão do YouTube Studio"
+                        app:helperText="Cole a chave da igreja (ex: v071-epf1...). Ela fica salva no celular."
+                        app:helperTextColor="@color/text_muted"
+                        app:boxBackgroundColor="@color/surface_2"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxStrokeColor="@color/tuned_green"
+                        app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etStreamKey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textVisiblePassword"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
-                        android:id="@+id/tvChannelAvatar"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:background="@drawable/circle_avatar"
-                        android:text="⛪"
-                        android:gravity="center"
-                        android:textSize="20sp" />
+                        android:id="@+id/tvStreamKeyStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="💡 Copie do YouTube Studio > Fazer Transmissão > Chave da Transmissão"
+                        android:textColor="@color/text_muted"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <!-- Painel 2: Conta Google OAuth -->
+                <LinearLayout
+                    android:id="@+id/layoutGoogleMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:id="@+id/layoutChannelInfo"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp">
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:visibility="gone">
 
                         <TextView
-                            android:id="@+id/tvChannelName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Canal da Igreja"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:id="@+id/tvChannelAvatar"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/circle_avatar"
+                            android:text="⛪"
+                            android:gravity="center"
+                            android:textSize="20sp" />
 
-                        <TextView
-                            android:id="@+id/tvChannelStatus"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <TextView
+                                android:id="@+id/tvChannelName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Canal da Igreja"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvChannelStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pronto para transmitir"
+                                android:textColor="@color/tuned_green"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnLogout"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pronto para transmitir"
-                            android:textColor="@color/tuned_green"
-                            android:textSize="12sp" />
+                            android:text="Trocar"
+                            android:textColor="@color/text_secondary" />
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btnLogout"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Trocar"
-                        android:textColor="@color/text_secondary" />
-                </LinearLayout>
+                        android:id="@+id/btnLoginGoogle"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:text="Conectar Canal do YouTube"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text_primary"
+                        app:cornerRadius="12dp" />
 
-                <Button
-                    android:id="@+id/btnLoginGoogle"
-                    style="@style/Widget.Material3.Button.TonalButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="12dp"
-                    android:text="Conectar Canal do YouTube"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_primary"
-                    app:cornerRadius="12dp" />
+                    <TextView
+                        android:id="@+id/tvGoogleHelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="ℹ️ Requer credencial Android no Google Cloud Console com o SHA-1 do app"
+                        android:textColor="@color/text_muted"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
