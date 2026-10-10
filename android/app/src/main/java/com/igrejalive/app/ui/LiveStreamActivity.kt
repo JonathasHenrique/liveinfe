@@ -15,6 +15,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -115,6 +116,13 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         setupScaleDetector()
         setupStreamManager()
         setupControls()
+
+        // Bloqueio contra toque acidental no botão ou gesto 'Voltar' do Android
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                confirmStopLive()
+            }
+        })
     }
 
     private fun setupScaleDetector() {
@@ -236,6 +244,14 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         // Botão Encerrar Transmissão
         binding.btnStopLive.setOnClickListener {
             confirmStopLive()
+        }
+
+        // Toque no badge de status de rede para reconectar manualmente a qualquer momento
+        binding.tvBitrate.setOnClickListener {
+            if (!streamManager.isStreaming() && rtmpUrl.isNotEmpty()) {
+                showStatusBanner("🔄 Reconectando ao YouTube...", isAlert = false)
+                streamManager.startStream(rtmpUrl)
+            }
         }
     }
 
@@ -376,7 +392,7 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         runOnUiThread {
             binding.tvBitrate.text = if (is1080p) "4000 kbps" else "2500 kbps"
             binding.viewNetworkStatus.setBackgroundResource(R.drawable.circle_green)
-            Toast.makeText(this, "Ao vivo no YouTube!", Toast.LENGTH_SHORT).show()
+            showStatusBanner("🟢 AO VIVO NO YOUTUBE", isAlert = false)
             timerHandler.post(timerRunnable)
         }
     }
@@ -384,8 +400,16 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
     override fun onConnectionFailed(reason: String) {
         runOnUiThread {
             binding.viewNetworkStatus.setBackgroundResource(R.drawable.circle_red)
-            binding.tvBitrate.text = "Falha de rede"
-            Toast.makeText(this, "Falha na conexão: $reason", Toast.LENGTH_LONG).show()
+            binding.tvBitrate.text = "Reconectando..."
+            showStatusBanner("⚠️ Oscilação de rede - Reconectando...", isAlert = true)
+            // Loop de auto-reconexão para quedas de link na igreja
+            if (!isFinishing && rtmpUrl.isNotEmpty()) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (!isFinishing && !streamManager.isStreaming()) {
+                        streamManager.startStream(rtmpUrl)
+                    }
+                }, 3000)
+            }
         }
     }
 
