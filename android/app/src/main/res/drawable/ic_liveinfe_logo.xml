@@ -1,0 +1,50 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Fundo Squircle Dourado (Estilo Bíblia do Instrumentista) -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M12,4 L36,4 C40.4,4 44,7.6 44,12 L44,36 C44,40.4 40.4,44 36,44 L12,44 C7.6,44 4,40.4 4,36 L4,12 C4,7.6 7.6,4 12,4 Z" />
+    
+    <!-- Bíblia Sagrada Aberta (Símbolo Evangélico da Palavra de Deus) -->
+    <!-- Página Esquerda da Bíblia -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,20 C20,18.5 16,18.5 13,19.5 L13,34 C16,33 20,33 24,34.5 Z" />
+
+    <!-- Página Direita da Bíblia -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,20 C28,18.5 32,18.5 35,19.5 L35,34 C32,33 28,33 24,34.5 Z" />
+
+    <!-- Detalhe da lombada central -->
+    <path
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M24,20 L24,34.5" />
+
+    <!-- Ondas de Transmissão da Palavra (Live Streaming) -->
+    <!-- Sinal Acima da Bíblia (Chama / Emissão de Sinal) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M19,14 C21,12 27,12 29,14" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M16,10 C19.5,7 28.5,7 32,10" />
+
+    <!-- Ponto emissor central -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,15.5 A1.5,1.5 0 1,0 24,15.51 Z" />
+</vector>

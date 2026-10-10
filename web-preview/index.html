@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LiveinFé • Transmissão Ministerial para o YouTube</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Barra Superior / Header (Identidade Bíblia do Instrumentista) -->
+  <header class="top-nav">
+    <div class="brand">
+      <div class="logo-squircle">
+        <!-- Ícone Bíblia Aberta + Ondas de Transmissão (LiveinFé) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Bíblia Aberta -->
+          <path d="M2 6c3-1 6-1 10 1 4-2 7-2 10-1v13c-3-1-6-1-10 1-4-2-7-2-10-1V6z" fill="rgba(255,255,255,0.2)"/>
+          <line x1="12" y1="7" x2="12" y2="21"/>
+          <!-- Ondas do Sinal ao Vivo -->
+          <path d="M8.5 3.5a5 5 0 0 1 7 0"/>
+          <circle cx="12" cy="4" r="0.8" fill="#FFFFFF"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>LIVEINFÉ</h1>
+        <span>TRANSMISSÃO • MINISTÉRIO • YOUTUBE</span>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="simulator">📱 Testar App Android</button>
+      <button class="nav-tab" data-tab="comparison">📐 Por que o YouTube Esticou?</button>
+      <button class="nav-tab" data-tab="guide">🚀 Guia do APK & YouTube API</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- ABA 1: SIMULADOR DO APLICATIVO -->
+    <section id="tab-simulator" class="tab-content active">
+      <div class="simulator-wrapper">
+        
+        <!-- Mockup do Celular Android -->
+        <div class="phone-mockup">
+          <div class="phone-frame">
+            
+            <!-- Barra de Status do Android -->
+            <div class="android-status-bar">
+              <span id="android-clock">19:30</span>
+              <div class="android-camera-hole"></div>
+              <span>📶 5G  🔋 94%</span>
+            </div>
+            
+            <!-- TELA 1 DO APP: CONFIGURAÇÃO DO CULTO -->
+            <div id="screen-setup" class="app-screen active">
+              <div class="app-header-box">
+                <div class="app-logo-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 6c3-1 6-1 10 1 4-2 7-2 10-1v13c-3-1-6-1-10 1-4-2-7-2-10-1V6z" fill="rgba(255,255,255,0.2)"/>
+                    <line x1="12" y1="7" x2="12" y2="21"/>
+                    <path d="M8.5 3.5a5 5 0 0 1 7 0"/>
+                    <circle cx="12" cy="4" r="0.8" fill="#FFFFFF"/>
+                  </svg>
+                </div>
+                <h2>LiveinFé</h2>
+                <p>Viver em Fé • Ao Vivo no YouTube</p>
+              </div>
+
+              <!-- Atalhos Rápidos de Cultos -->
+              <div class="preset-chips-scroll">
+                <button class="chip-btn" data-preset="Culto de Celebração">🔥 Celebração</button>
+                <button class="chip-btn" data-preset="Culto de Oração e Intercessão">🙏 Oração</button>
+                <button class="chip-btn" data-preset="Encontro de Jovens">⚡ Jovens</button>
+                <button class="chip-btn" data-preset="Santa Ceia do Senhor">🍞 Santa Ceia</button>
+              </div>
+
+              <!-- Card Conta do YouTube -->
+              <div class="app-card">
+                <div class="app-card-title">CANAL DO YOUTUBE</div>
+                
+                <div id="auth-signed-out" class="auth-box">
+                  <button id="btn-login-sim" class="btn-google">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5.1 3.7-8.8z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.1-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/></svg>
+                    Conectar Canal do YouTube
+                  </button>
+                </div>
+
+                <div id="auth-signed-in" class="auth-box-connected" style="display: none;">
+                  <div class="channel-info">
+                    <div class="channel-avatar">⛪</div>
+                    <div class="channel-meta">
+                      <strong id="sim-channel-name">Canal da Igreja</strong>
+                      <span class="status-badge-ok">● Pronto para transmitir</span>
+                    </div>
+                  </div>
+                  <button id="btn-switch-account" class="btn-text">Trocar</button>
+                </div>
+              </div>
+
+              <!-- Card Configurações da Live -->
+              <div class="app-card">
+                <div class="app-card-title">CONFIGURAÇÃO DO CULTO</div>
+                
+                <div class="form-group">
+                  <label for="input-live-title">Título da Transmissão:</label>
+                  <input type="text" id="input-live-title" value="Culto de Celebração • Ao Vivo" placeholder="Ex: Culto de Celebração">
+                </div>
+
+                <div class="form-group">
+                  <label>Privacidade no YouTube:</label>
+                  <div class="radio-pill-group">
+                    <label class="radio-pill">
+                      <input type="radio" name="sim-privacy" value="public" checked>
+                      <span>Público</span>
+                    </label>
+                    <label class="radio-pill">
+                      <input type="radio" name="sim-privacy" value="unlisted">
+                      <span>Não Listado (Teste)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Resolução de Vídeo (16:9 Nativo):</label>
+                  <div class="radio-pill-group">
+                    <label class="radio-pill">
+                      <input type="radio" name="sim-res" value="1080p" checked>
+                      <span>1080p Full HD</span>
+                    </label>
+                    <label class="radio-pill">
+                      <input type="radio" name="sim-res" value="720p">
+                      <span>720p HD</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botão Principal Verde Afinador -->
+              <button id="btn-start-stream" class="btn-green-live">
+                <span class="btn-icon">⚡</span>
+                <span class="btn-text">ENTRAR AO VIVO NO YOUTUBE</span>
+              </button>
+
+              <p class="hint-text">1 clique: Cria a live, configura 16:9 e transmite sem cadastrar chaves ou senhas manuais.</p>
+            </div>
+
+            <!-- TELA 2 DO APP: TELA AO VIVO (HUD DE TRANSMISSÃO) -->
+            <div id="screen-live" class="app-screen">
+              
+              <!-- Container de Vídeo da Câmera (16:9 Estrito) -->
+              <div class="live-viewport-container">
+                <video id="live-camera-video" autoplay playsinline muted></video>
+                <div id="simulated-camera-feed" class="simulated-church-feed">
+                  <div class="altar-stage">
+                    <div class="bible-altar-icon">📖</div>
+                    <div class="pulpit-podium">Altar Principal • LiveinFé</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HUD Superior -->
+              <div class="live-hud-top">
+                <div class="badge-live-fe">
+                  <span class="pulse-dot"></span>
+                  <span>LIVEINFÉ AO VIVO</span>
+                  <span id="live-timer" class="badge-timer">00:00:00</span>
+                </div>
+
+                <div class="badge-stats">
+                  <span class="status-indicator-green"></span>
+                  <span id="live-bitrate" class="stat-text">4000 kbps</span>
+                  <span class="stat-fps">30 FPS</span>
+                </div>
+
+                <button id="btn-copy-link" class="btn-glass" title="Compartilhar Link">
+                  🔗 Link
+                </button>
+              </div>
+
+              <!-- HUD Esquerda: VU Meter do Áudio (Estilo Afinador) -->
+              <div class="live-hud-left">
+                <div class="vu-meter-card">
+                  <span class="vu-label">ÁUDIO</span>
+                  <div class="vu-meter-bars" id="vu-meter-display">
+                    <!-- Gerado dinamicamente -->
+                  </div>
+                  <span id="vu-db-text" class="vu-db">-12dB</span>
+                </div>
+              </div>
+
+              <!-- HUD Direita: Controles Rápidos de Câmera -->
+              <div class="live-hud-right">
+                <button id="btn-flip-cam" class="hud-circle-btn" title="Alternar Câmera (Traseira/Frontal)">
+                  🔄
+                  <span class="btn-tooltip">Trocar Câmera</span>
+                </button>
+                <button id="btn-mute-mic" class="hud-circle-btn" title="Mutar Áudio">
+                  🎤
+                  <span class="btn-tooltip">Microfone</span>
+                </button>
+                <button id="btn-toggle-light" class="hud-circle-btn" title="Lanterna">
+                  💡
+                  <span class="btn-tooltip">Iluminação</span>
+                </button>
+              </div>
+
+              <!-- HUD Inferior: Informação e Botão de Encerrar -->
+              <div class="live-hud-bottom">
+                <div class="res-tag">
+                  <span id="live-res-label">1080p Full HD • 16:9 Nativo</span>
+                </div>
+                <button id="btn-stop-live" class="btn-danger-stop">
+                  ⏹ ENCERRAR TRANSMISSÃO
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Painel Lateral de Controle e Informações -->
+        <div class="simulator-sidebar">
+          <div class="info-card">
+            <h3>🎮 Controles de Teste do LiveinFé</h3>
+            <p>Teste as funcionalidades do aplicativo ao lado. Você pode usar sua <strong>webcam real</strong> ou o <strong>simulador do altar da igreja</strong>.</p>
+            
+            <div class="control-row">
+              <label>Fonte da Câmera:</label>
+              <div class="button-toggle-group">
+                <button id="btn-use-webcam" class="btn-toggle">Usar Minha Webcam</button>
+                <button id="btn-use-altar" class="btn-toggle active">Câmera Simulada (Altar)</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <label>Volume do Microfone / Mesa de Som:</label>
+              <input type="range" id="input-audio-volume" min="0" max="100" value="68">
+            </div>
+
+            <div class="control-row">
+              <label>Condição da Conexão da Igreja:</label>
+              <select id="select-network-health">
+                <option value="good">🟢 Excelente (Fibra / Wi-Fi 5GHz - 4500 kbps)</option>
+                <option value="medium">🟡 Oscilando (4G ou Wi-Fi distante - 2500 kbps)</option>
+                <option value="bad">🔴 Crítica (Sinal fraco - 1200 kbps)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="info-card highlight">
+            <h3>✨ Vantagens do LiveinFé para sua Igreja</h3>
+            <ul class="benefit-list">
+              <li>
+                <strong>Trocadilho "Live em Fé" / "Viver em Fé":</strong> Nome e identidade inspirados no padrão nobre da Bíblia do Instrumentista.
+              </li>
+              <li>
+                <strong>Zero Tokens Manuais:</strong> Automação total com a YouTube Live Streaming API (OAuth 2.0). Criou, transmitiu!
+              </li>
+              <li>
+                <strong>Vídeo 16:9 Perfeito:</strong> Sem o efeito esticado do app oficial do YouTube. Cada pixel ajustado por hardware.
+              </li>
+              <li>
+                <strong>VU Meter com Cores do Afinador:</strong> Verde para áudio perfeito, ouro para atenção e vermelho para clipping.
+              </li>
+              <li>
+                <strong>Troca de Câmera Fluida:</strong> Alterne entre púlpito e congregação sem perder a transmissão.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABA 2: COMPARATIVO VISUAL (POR QUE O YOUTUBE ESTICOU?) -->
+    <section id="tab-comparison" class="tab-content">
+      <div class="comparison-container">
+        <div class="comparison-header">
+          <h2>Por que o App Nativo do YouTube deixou a live esticada?</h2>
+          <p>Entenda a raiz do problema ótico dos sensores e como o LiveinFé corrige isso matematicamente no Android.</p>
+        </div>
+
+        <div class="comparison-grid">
+          
+          <!-- Caso 1: YouTube Nativo -->
+          <div class="comparison-card error-card">
+            <div class="comparison-badge red">App Nativo do YouTube</div>
+            <div class="aspect-demo-box">
+              <div class="stretched-visual">
+                <div class="person-shape stretched">
+                  <span>ALTAR ESTICADO (4:3 -> 16:9)</span>
+                </div>
+              </div>
+            </div>
+            <div class="comparison-details">
+              <h4>O que acontece:</h4>
+              <p>Os sensores de câmeras de celular são nativamente <strong>4:3</strong>. O app do YouTube em modo paisagem muitas vezes escala o buffer inteiro para 16:9 sem recortar as bordas. <strong>Resultado: pessoas e letras ficam deformadas e esticadas horizontalmente.</strong></p>
+            </div>
+          </div>
+
+          <!-- Caso 2: IRL Pro -->
+          <div class="comparison-card warning-card">
+            <div class="comparison-badge yellow">IRL Pro (Trabalhoso)</div>
+            <div class="aspect-demo-box">
+              <div class="manual-token-visual">
+                <code>Erro: Chave RTMP Expirada</code>
+                <code>rtmp://a.rtmp.youtube.com/live2/xxxx</code>
+              </div>
+            </div>
+            <div class="comparison-details">
+              <h4>O que acontece:</h4>
+              <p>O IRL Pro foi feito para streamers externos e não se conecta de forma amigável com o YouTube. Toda semana a equipe precisa abrir o PC, gerar uma chave nova e digitar no celular.</p>
+            </div>
+          </div>
+
+          <!-- Caso 3: LiveinFé -->
+          <div class="comparison-card success-card">
+            <div class="comparison-badge green">LiveinFé (Solução Sob Medida)</div>
+            <div class="aspect-demo-box">
+              <div class="perfect-visual">
+                <div class="person-shape perfect">
+                  <span>PROPORÇÃO 16:9 REAL</span>
+                </div>
+              </div>
+            </div>
+            <div class="comparison-details">
+              <h4>Como resolvemos:</h4>
+              <p>O pipeline OpenGL do aplicativo aplica uma matriz de corte central <strong>(Center Crop 16:9)</strong> antes do codificador H.264 do celular. O sinal chega ao YouTube em 1920x1080 limpo, nítido e com proporções perfeitas.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 3: GUIA DO APK & YOUTUBE API -->
+    <section id="tab-guide" class="tab-content">
+      <div class="guide-container">
+        <h2>Como gerar o APK do LiveinFé para os celulares da igreja</h2>
+        
+        <div class="guide-steps">
+          
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Código Android Pronto</h3>
+              <p>O projeto Kotlin completo com Pedro RootEncoder e YouTube API já está pronto no diretório:</p>
+              <pre class="code-box"><code>/home/jonathas/.gemini/antigravity-ide/scratch/igreja-live/android</code></pre>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Habilitar a YouTube Data API v3</h3>
+              <p>No <a href="https://console.cloud.google.com" target="_blank" rel="noopener">Google Cloud Console</a>:</p>
+              <ol class="step-list">
+                <li>Ative a <strong>YouTube Data API v3</strong> no projeto do canal da igreja.</li>
+                <li>Em <strong>Credenciais</strong>, crie um <strong>ID do cliente OAuth (Android)</strong> com o pacote <code>com.igrejalive.app</code>.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Gerar o APK no Android Studio</h3>
+              <p>Abra a pasta <code>igreja-live/android</code> no Android Studio e clique em <strong>Build &gt; Build APK(s)</strong>. O arquivo <code>app-debug.apk</code> estará pronto para ser instalado em qualquer celular Android da equipe de mídia!</p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Conexão da Mesa de Som via USB OTG</h3>
+              <p>Ligue a saída auxiliar (REC OUT ou AUX) da mesa de som em uma interface USB-C (ex: Behringer UCA202, Flow 8 ou iRig) e conecte ao celular. O LiveinFé capturará o áudio a 48kHz em estéreo direto da mesa com som limpo de estúdio!</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permissões essenciais para streaming -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Recursos de hardware opcionais/necessários -->
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_liveinfe_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_liveinfe_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LiveinFe"
+        tools:targetApi="31">
+
+        <!-- Tela Principal: Configurações, Login com YouTube e Início de Transmissão -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Tela de Transmissão: Visualização de Câmera 16:9 em Paisagem e Controles Rápidos -->
+        <activity
+            android:name=".ui.LiveStreamActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize"
+            android:keepScreenOn="true" />
+
+    </application>
+
+</manifest>

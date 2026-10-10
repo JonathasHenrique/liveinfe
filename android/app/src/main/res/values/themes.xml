@@ -1,0 +1,14 @@
+<resources>
+    <style name="Theme.LiveinFe" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Verde Afinador como cor primária de ação -->
+        <item name="colorPrimary">@color/tuned_green</item>
+        <item name="colorPrimaryVariant">@color/tuned_green_dark</item>
+        <item name="colorSecondary">@color/gold_primary</item>
+        
+        <!-- Fundo e Superfícies Estilo Bíblia do Instrumentista -->
+        <item name="android:statusBarColor">@color/bg_main</item>
+        <item name="android:navigationBarColor">@color/bg_main</item>
+        <item name="android:windowBackground">@color/bg_main</item>
+        <item name="colorSurface">@color/surface_1</item>
+    </style>
+</resources>

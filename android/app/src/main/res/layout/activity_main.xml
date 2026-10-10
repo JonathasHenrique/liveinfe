@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header LiveinFé (Bíblia Sagrada + Ondas de Transmissão) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp">
+
+            <!-- Logo Squircle com Bíblia Aberta e Ondas de Transmissão -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_liveinfe_logo"
+                android:contentDescription="LiveinFé Logo" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LIVEINFÉ"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.06" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TRANSMISSÃO • MINISTÉRIO • YOUTUBE"
+                    android:textColor="@color/tuned_green"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08" />
+            </LinearLayout>
+
+            <!-- Badge de Proporção 16:9 Nativa Garantida -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/badge_dark_bg"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="16:9 PRO"
+                android:textColor="@color/tuned_green"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+
+        <!-- Chips de Atalho Rápido para Cultos -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ATALHOS DO MINISTÉRIO"
+            android:textColor="@color/text_muted"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupPresets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCelebracao"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔥 Culto de Celebração"
+                    android:textColor="@color/text_primary"
+                    app:chipBackgroundColor="@color/surface_2"
+                    app:chipStrokeColor="@color/border_subtle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipOracao"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🙏 Culto de Oração"
+                    android:textColor="@color/text_primary"
+                    app:chipBackgroundColor="@color/surface_2"
+                    app:chipStrokeColor="@color/border_subtle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipJovens"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ Encontro de Jovens"
+                    android:textColor="@color/text_primary"
+                    app:chipBackgroundColor="@color/surface_2"
+                    app:chipStrokeColor="@color/border_subtle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCeia"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍞 Santa Ceia"
+                    android:textColor="@color/text_primary"
+                    app:chipBackgroundColor="@color/surface_2"
+                    app:chipStrokeColor="@color/border_subtle" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <!-- Card: Canal do YouTube -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/surface_1"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/border_subtle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CANAL DO YOUTUBE"
+                    android:textColor="@color/tuned_green"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08" />
+
+                <LinearLayout
+                    android:id="@+id/layoutChannelInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvChannelAvatar"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/circle_avatar"
+                        android:text="⛪"
+                        android:gravity="center"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:id="@+id/tvChannelName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Canal da Igreja"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvChannelStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pronto para transmitir"
+                            android:textColor="@color/tuned_green"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnLogout"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trocar"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnLoginGoogle"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Conectar Canal do YouTube"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    app:cornerRadius="12dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card: Detalhes da Live -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/surface_1"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/border_subtle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONFIGURAÇÕES DA TRANSMISSÃO"
+                    android:textColor="@color/tuned_green"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08" />
+
+                <!-- Título -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Título do Culto"
+                    app:boxBackgroundColor="@color/surface_2"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxStrokeColor="@color/tuned_green"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLiveTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Culto de Celebração • Ao Vivo"
+                        android:textColor="@color/text_primary"
+                        android:inputType="textCapSentences" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Privacidade -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Privacidade no YouTube"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rgPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <RadioButton
+                        android:id="@+id/rbPublic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Público (Membros e visitantes assistem)"
+                        android:textColor="@color/text_primary" />
+
+                    <RadioButton
+                        android:id="@+id/rbUnlisted"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Não Listado (Apenas quem tiver o link / Teste da equipe)"
+                        android:textColor="@color/text_secondary" />
+                </RadioGroup>
+
+                <!-- Resolução / Qualidade -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Qualidade de Transmissão (16:9 Nativo Sem Esticar)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rgResolution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <RadioButton
+                        android:id="@+id/rb1080p"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="1080p Full HD (4000 kbps • Perfil Larix / Alta Definição)"
+                        android:textColor="@color/text_primary" />
+
+                    <RadioButton
+                        android:id="@+id/rb720p"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="720p HD (2.5 Mbps • Recomendado se o Wi-Fi oscilar)"
+                        android:textColor="@color/text_secondary" />
+                </RadioGroup>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Botão Principal Verde Afinador: ENTRAR AO VIVO NO YOUTUBE -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartLive"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="@drawable/bg_green_gradient"
+            android:text="ENTRAR AO VIVO NO YOUTUBE"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_liveinfe_logo"
+            app:iconTint="#FFFFFF"
+            app:iconGravity="textStart" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="A transmissão será criada e conectada automaticamente em 16:9 sem necessidade de copiar chaves ou tokens."
+            android:textColor="@color/text_muted"
+            android:textSize="12sp"
+            android:gravity="center" />
+
+        <!-- Opção manual -->
+        <Button
+            android:id="@+id/btnManualRtmp"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:text="Modo Servidor RTMP Manual"
+            android:textColor="@color/text_muted"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</ScrollView>

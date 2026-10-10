@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">LiveinFé</string>
+    <string name="app_tagline">Transmissão Ministerial para o YouTube</string>
+    <string name="login_with_google">Conectar Canal do YouTube</string>
+    <string name="logged_in_as">Canal da Igreja Conectado:</string>
+    <string name="live_title_hint">Título do Culto</string>
+    <string name="live_description_hint">Descrição (opcional)</string>
+    <string name="privacy_label">Privacidade da Transmissão:</string>
+    <string name="privacy_public">Público (Visível a todos)</string>
+    <string name="privacy_unlisted">Não Listado (Apenas com link / Teste da equipe)</string>
+    <string name="privacy_private">Privado (Apenas administradores)</string>
+    <string name="resolution_label">Qualidade de Vídeo (16:9 Nativo):</string>
+    <string name="resolution_1080p">1080p Full HD (30 FPS • ~4.5 Mbps)</string>
+    <string name="resolution_720p">720p HD (30 FPS • ~2.5 Mbps)</string>
+    <string name="btn_start_live">ENTRAR AO VIVO NO YOUTUBE</string>
+    <string name="btn_stop_live">ENCERRAR TRANSMISSÃO</string>
+    <string name="btn_switch_camera">Trocar Câmera</string>
+    <string name="btn_mute">Microfone</string>
+    <string name="status_ready">Pronto para transmitir</string>
+    <string name="status_connecting">Criando live no canal e conectando...</string>
+    <string name="status_streaming">LIVEINFÉ AO VIVO</string>
+    <string name="confirm_stop_title">Encerrar a transmissão?</string>
+    <string name="confirm_stop_msg">Tem certeza de que deseja encerrar o culto ao vivo no YouTube agora?</string>
+    <string name="yes">Sim, Encerrar</string>
+    <string name="cancel">Cancelar</string>
+</resources>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Viewport OpenGL com Pedro RootEncoder (Garante Proporção 16:9 Estrita sem Esticar) -->
+    <com.pedro.library.view.OpenGlView
+        android:id="@+id/openGlView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Barra Superior de Status da Live -->
+    <LinearLayout
+        android:id="@+id/layoutTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Badge AO VIVO -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/badge_live_bg"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/circle_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="AO VIVO"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvLiveTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="00:00:00"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+
+        <!-- Bitrate & FPS -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="horizontal"
+            android:background="@drawable/badge_dark_bg"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:gravity="center_vertical">
+
+            <View
+                android:id="@+id/viewNetworkStatus"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/circle_green" />
+
+            <TextView
+                android:id="@+id/tvBitrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="4500 kbps"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:fontFamily="monospace" />
+
+            <TextView
+                android:id="@+id/tvFps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="30 FPS"
+                android:textColor="#9CA3AF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Espaço flexível -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!-- Botão Copiar Link da Live no YouTube -->
+        <Button
+            android:id="@+id/btnShareLive"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Link do YouTube"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#33FFFFFF" />
+    </LinearLayout>
+
+    <!-- Indicador VU Meter de Áudio (Mesa de Som / Microfone) à esquerda -->
+    <LinearLayout
+        android:id="@+id/layoutAudioMeter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/badge_dark_bg"
+        android:padding="8dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutTopBar"
+        app:layout_constraintBottom_toTopOf="@id/layoutBottomControls">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ÁUDIO"
+            android:textColor="#9CA3AF"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <com.igrejalive.app.ui.VuMeterView
+            android:id="@+id/vuMeterView"
+            android:layout_width="16dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="6dp" />
+
+        <TextView
+            android:id="@+id/tvAudioDb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="-12dB"
+            android:textColor="#00E676"
+            android:textSize="10sp"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <!-- Controles Rápidos da Câmera (Coluna à Direita) -->
+    <LinearLayout
+        android:id="@+id/layoutCameraControls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Botão Trocar Câmera (Traseira <-> Frontal) com 1 toque -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSwitchCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:contentDescription="Trocar Câmera"
+            app:backgroundTint="#33FFFFFF"
+            app:tint="#FFFFFF"
+            app:srcCompat="@android:drawable/ic_popup_sync"
+            app:fabSize="normal" />
+
+        <!-- Botão Mudo Áudio -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMuteAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:contentDescription="Microfone / Mudo"
+            app:backgroundTint="#33FFFFFF"
+            app:tint="#FFFFFF"
+            app:srcCompat="@android:drawable/ic_lock_silent_mode_off"
+            app:fabSize="mini" />
+
+        <!-- Botão Flash / Iluminação -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabFlashLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Lanterna"
+            app:backgroundTint="#33FFFFFF"
+            app:tint="#FFFFFF"
+            app:srcCompat="@android:drawable/ic_menu_day"
+            app:fabSize="mini" />
+    </LinearLayout>
+
+    <!-- Barra Inferior com Botão de Encerrar -->
+    <LinearLayout
+        android:id="@+id/layoutBottomControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvStreamResolutionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1080p Full HD • 16:9 Nativo"
+            android:textColor="#80FFFFFF"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!-- Botão Vermelho de Encerrar Transmissão -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStopLive"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/accent_red"
+            android:text="ENCERRAR TRANSMISSÃO"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="12dp"
+            app:icon="@android:drawable/ic_delete"
+            app:iconTint="#FFFFFF" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

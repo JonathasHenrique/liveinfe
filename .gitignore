@@ -1,0 +1,17 @@
+# Gradle & Android Caches
+.gradle/
+build/
+app/build/
+android/.gradle/
+android/app/build/
+android/build/
+
+# Local configuration
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# Compiled outputs
+*.apk
+*.aab
