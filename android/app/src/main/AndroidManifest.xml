@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
 
     <!-- Recursos de hardware opcionais/necessários -->
     <uses-feature android:name="android.hardware.camera" android:required="true" />
@@ -34,12 +37,13 @@
             </intent-filter>
         </activity>
 
-        <!-- Tela de Transmissão: Visualização de Câmera 16:9 em Paisagem e Controles Rápidos -->
+        <!-- Tela de Transmissão: Visualização de Câmera 16:9, PiP e Controles Rápidos -->
         <activity
             android:name=".ui.LiveStreamActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:supportsPictureInPicture="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|smallestScreenSize"
             android:launchMode="singleTask"
             android:keepScreenOn="true" />
 

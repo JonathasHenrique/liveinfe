@@ -1,14 +1,18 @@
 package com.igrejalive.app.ui
 
+import android.app.PictureInPictureParams
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Rational
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
@@ -124,6 +128,19 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
                 confirmStopLive()
             }
         })
+
+        // Configura Picture-in-Picture automático para Android 12+ (Samsung S21/S22/S23/S24/S25)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            try {
+                val pipParams = PictureInPictureParams.Builder()
+                    .setAspectRatio(Rational(16, 9))
+                    .setAutoEnterEnabled(true)
+                    .build()
+                setPictureInPictureParams(pipParams)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun setupScaleDetector() {
@@ -214,7 +231,7 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
             animateFlashLight(isOn)
         }
 
-        // Botão Copiar Link da Live: 100% SEGURO (NUNCA SAI DA TELA DA LIVE)
+        // Botão Copiar/Compartilhar Link da Live (com suporte a Picture-in-Picture)
         binding.btnShareLive.setOnClickListener {
             val url = watchUrl ?: "https://youtube.com/live"
             
@@ -229,9 +246,31 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
                 vibrator?.vibrate(android.os.VibrationEffect.createOneShot(40, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
             } catch (ignored: Exception) {}
 
-            // 3. Banner animado e Toast sem sair da live
+            // 3. Banner animado e orientação sobre PiP
             showStatusBanner("📋 LINK COPIADO COM SUCESSO!", isAlert = false)
-            Toast.makeText(this, "Link copiado! Cole no WhatsApp quando quiser sem sair da live.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Link copiado! Se abrir o WhatsApp, a live continua em janela flutuante (PiP).", Toast.LENGTH_LONG).show()
+        }
+
+        // Toque longo no botão: Compartilha direto no WhatsApp abrindo em PiP
+        binding.btnShareLive.setOnLongClickListener {
+            val url = watchUrl ?: "https://youtube.com/live"
+            if (isLiveStarted && streamManager.isStreaming() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                try {
+                    val pipParams = PictureInPictureParams.Builder()
+                        .setAspectRatio(Rational(16, 9))
+                        .build()
+                    enterPictureInPictureMode(pipParams)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "A paz do Senhor! Assista ao culto ao vivo pelo YouTube: $url")
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, "Compartilhar Link do Culto"))
+            true
         }
 
         // Botão Encerrar Transmissão
@@ -458,6 +497,39 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
 
     override fun onAuthSuccess() {
         // Autenticado
+    }
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        if (isLiveStarted && streamManager.isStreaming() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            try {
+                val pipParams = PictureInPictureParams.Builder()
+                    .setAspectRatio(Rational(16, 9))
+                    .build()
+                enterPictureInPictureMode(pipParams)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        if (isInPictureInPictureMode) {
+            // Em modo PiP (janela flutuante no WhatsApp), esconde controles para exibir imagem limpa 16:9
+            binding.layoutTopBar.visibility = View.GONE
+            binding.layoutBottomControls.visibility = View.GONE
+            binding.layoutCameraControls.visibility = View.GONE
+            binding.layoutAudioMeter.visibility = View.GONE
+            binding.tvStatusBanner.visibility = View.GONE
+            binding.tvZoomHud.visibility = View.GONE
+        } else {
+            // Ao retornar para tela cheia, restaura todos os controles da transmissão
+            binding.layoutTopBar.visibility = View.VISIBLE
+            binding.layoutBottomControls.visibility = View.VISIBLE
+            binding.layoutCameraControls.visibility = View.VISIBLE
+            binding.layoutAudioMeter.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroy() {

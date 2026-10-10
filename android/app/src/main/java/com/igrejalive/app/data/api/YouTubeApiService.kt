@@ -60,7 +60,7 @@ class YouTubeApiService(
                 status = BroadcastStatus(privacyStatus = privacy),
                 contentDetails = BroadcastContentDetails(
                     enableAutoStart = true,
-                    enableAutoStop = true,
+                    enableAutoStop = false, // Impede que o YouTube mate a transmissão em quedas de sinal
                     recordFromStart = true
                 )
             )
