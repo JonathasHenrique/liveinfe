@@ -120,7 +120,8 @@ class StreamManager(
      */
     fun tapToFocus(event: MotionEvent): Boolean {
         return try {
-            rtmpCamera?.tapToFocus(openGlView, event) ?: false
+            rtmpCamera?.tapToFocus(event)
+            true
         } catch (e: Exception) {
             false
         }
