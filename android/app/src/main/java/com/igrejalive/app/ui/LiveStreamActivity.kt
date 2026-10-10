@@ -1,16 +1,21 @@
 package com.igrejalive.app.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
+import android.view.View
 import android.view.WindowManager
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.pedro.common.ConnectChecker
 import com.igrejalive.app.R
@@ -29,6 +34,7 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         const val EXTRA_ACCESS_TOKEN = "extra_access_token"
         const val EXTRA_IS_1080P = "extra_is_1080p"
         const val EXTRA_TITLE = "extra_title"
+        const val EXTRA_AUDIO_CHURCH = "extra_audio_church"
     }
 
     private lateinit var binding: ActivityLiveStreamBinding
@@ -40,6 +46,32 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
     private var watchUrl: String? = null
     private var accessToken: String? = null
     private var is1080p: Boolean = true
+    private var isChurchAudio: Boolean = true
+
+    // Zoom
+    private var currentZoom: Float = 1.0f
+    private lateinit var scaleDetector: ScaleGestureDetector
+
+    // Handlers para feedback animado
+    private val bannerHandler = Handler(Looper.getMainLooper())
+    private val zoomHudHandler = Handler(Looper.getMainLooper())
+
+    private val hideBannerRunnable = Runnable {
+        binding.tvStatusBanner.animate()
+            .alpha(0f)
+            .translationY(-25f)
+            .setDuration(250)
+            .withEndAction { binding.tvStatusBanner.visibility = View.GONE }
+            .start()
+    }
+
+    private val hideZoomHudRunnable = Runnable {
+        binding.tvZoomHud.animate()
+            .alpha(0f)
+            .setDuration(250)
+            .withEndAction { binding.tvZoomHud.visibility = View.GONE }
+            .start()
+    }
 
     // Timer do Culto
     private var streamSeconds = 0
@@ -72,66 +104,101 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         watchUrl = intent.getStringExtra(EXTRA_WATCH_URL)
         accessToken = intent.getStringExtra(EXTRA_ACCESS_TOKEN)
         is1080p = intent.getBooleanExtra(EXTRA_IS_1080P, true)
+        isChurchAudio = intent.getBooleanExtra(EXTRA_AUDIO_CHURCH, true)
 
         binding.tvStreamResolutionInfo.text = if (is1080p) "1080p Full HD • 16:9 Nativo" else "720p HD • 16:9 Nativo"
+        binding.tvAudioSourceBadge.text = if (isChurchAudio) "IGREJA" else "MÍDIA"
 
+        setupScaleDetector()
         setupStreamManager()
         setupControls()
+    }
+
+    private fun setupScaleDetector() {
+        scaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                val factor = detector.scaleFactor
+                currentZoom *= factor
+                val range = streamManager.getZoomRange()
+                val min = range?.lower ?: 1.0f
+                val max = range?.upper ?: 5.0f
+                currentZoom = currentZoom.coerceIn(min, max)
+                streamManager.setZoom(currentZoom)
+                showZoomHud(currentZoom)
+                updateZoomButtonsState(currentZoom)
+                return true
+            }
+        })
     }
 
     private fun setupStreamManager() {
         streamManager = StreamManager(this, binding.openGlView, this)
 
         binding.openGlView.post {
-            val prepared = streamManager.prepareStream(is1080p)
+            val prepared = streamManager.prepareStream(
+                is1080p = is1080p,
+                bitrateKbps = if (is1080p) 4000 else 2500,
+                isChurchAudio = isChurchAudio
+            )
             if (prepared) {
                 streamManager.startPreview()
-                // Inicia a transmissão automaticamente para o YouTube
                 if (rtmpUrl.isNotEmpty()) {
                     streamManager.startStream(rtmpUrl)
                 }
             } else {
-                Toast.makeText(this, "Falha ao preparar câmera ou microfone", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Falha ao preparar câmera ou áudio", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun setupControls() {
-        // Toque na tela para focar e expor (Tap-to-Focus no Altar/Pregador)
+        // Toque na tela: Gesto de Pinça (Zoom) ou Toque Simples (Foco no Pastor/Altar)
         binding.openGlView.setOnTouchListener { _, event ->
-            if (event.action == android.view.MotionEvent.ACTION_UP) {
+            scaleDetector.onTouchEvent(event)
+            if (!scaleDetector.isInProgress && event.action == MotionEvent.ACTION_UP) {
                 val focused = streamManager.tapToFocus(event)
                 if (focused) {
-                    Toast.makeText(this, "Foco ajustado", Toast.LENGTH_SHORT).show()
+                    showStatusBanner("🎯 Foco Ajustado no Púlpito", isAlert = false)
                 }
             }
             true
         }
 
-        // Trocar Câmera com 1 toque
+        // Botões Rápidos de Zoom (1x e 2x)
+        binding.btnZoom1x.setOnClickListener {
+            animateZoomButtonClick(binding.btnZoom1x)
+            currentZoom = 1.0f
+            streamManager.setZoom(currentZoom)
+            showZoomHud(currentZoom)
+            updateZoomButtonsState(currentZoom)
+        }
+
+        binding.btnZoom2x.setOnClickListener {
+            animateZoomButtonClick(binding.btnZoom2x)
+            currentZoom = 2.0f
+            streamManager.setZoom(currentZoom)
+            showZoomHud(currentZoom)
+            updateZoomButtonsState(currentZoom)
+        }
+
+        // Trocar Câmera com micro-animação de rotação 180°
         binding.fabSwitchCamera.setOnClickListener {
+            animateSwitchCamera()
             streamManager.switchCamera()
             val cameraName = if (streamManager.isFrontCamera()) "Câmera Frontal" else "Câmera Traseira Principal"
-            Toast.makeText(this, cameraName, Toast.LENGTH_SHORT).show()
+            showStatusBanner("🔄 $cameraName", isAlert = false)
         }
 
-        // Mudo / Microfone
+        // Mudo / Microfone com micro-animação de pulso e transição de cor
         binding.fabMuteAudio.setOnClickListener {
             val isMuted = streamManager.toggleMute()
-            if (isMuted) {
-                binding.fabMuteAudio.setImageResource(android.R.drawable.ic_lock_silent_mode)
-                Toast.makeText(this, "Microfone Mutado", Toast.LENGTH_SHORT).show()
-                binding.vuMeterView.setAudioLevel(0.0f)
-            } else {
-                binding.fabMuteAudio.setImageResource(android.R.drawable.ic_lock_silent_mode_off)
-                Toast.makeText(this, "Microfone Aberto", Toast.LENGTH_SHORT).show()
-            }
+            animateMuteAudio(isMuted)
         }
 
-        // Lanterna / Flash
+        // Lanterna / Flash com micro-animação
         binding.fabFlashLight.setOnClickListener {
             val isOn = streamManager.toggleFlash()
-            Toast.makeText(this, if (isOn) "Luz Ligada" else "Luz Desligada", Toast.LENGTH_SHORT).show()
+            animateFlashLight(isOn)
         }
 
         // Compartilhar Link do YouTube
@@ -149,6 +216,106 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         binding.btnStopLive.setOnClickListener {
             confirmStopLive()
         }
+    }
+
+    private fun animateSwitchCamera() {
+        binding.fabSwitchCamera.animate()
+            .rotationBy(180f)
+            .setDuration(350)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .start()
+    }
+
+    private fun animateMuteAudio(isMuted: Boolean) {
+        binding.fabMuteAudio.animate()
+            .scaleX(1.3f)
+            .scaleY(1.3f)
+            .setDuration(120)
+            .withEndAction {
+                binding.fabMuteAudio.animate()
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(120)
+                    .start()
+            }
+            .start()
+
+        if (isMuted) {
+            binding.fabMuteAudio.setImageResource(android.R.drawable.ic_lock_silent_mode)
+            binding.fabMuteAudio.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#EF4444")) // Vermelho
+            binding.vuMeterView.setAudioLevel(0.0f)
+            showStatusBanner("🔇 MICROFONE MUTADO", isAlert = true)
+        } else {
+            binding.fabMuteAudio.setImageResource(android.R.drawable.ic_lock_silent_mode_off)
+            binding.fabMuteAudio.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#33FFFFFF"))
+            showStatusBanner("🎙️ MICROFONE ABERTO", isAlert = false)
+        }
+    }
+
+    private fun animateFlashLight(isOn: Boolean) {
+        binding.fabFlashLight.animate()
+            .scaleX(1.25f)
+            .scaleY(1.25f)
+            .setDuration(100)
+            .withEndAction {
+                binding.fabFlashLight.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start()
+            }
+            .start()
+
+        if (isOn) {
+            binding.fabFlashLight.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#F59E0B")) // Ouro
+            showStatusBanner("💡 Iluminação Ligada", isAlert = false)
+        } else {
+            binding.fabFlashLight.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#33FFFFFF"))
+            showStatusBanner("💡 Iluminação Desligada", isAlert = false)
+        }
+    }
+
+    private fun animateZoomButtonClick(view: View) {
+        view.animate()
+            .scaleX(1.2f)
+            .scaleY(1.2f)
+            .setDuration(100)
+            .withEndAction {
+                view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start()
+            }
+            .start()
+    }
+
+    private fun updateZoomButtonsState(zoom: Float) {
+        val green = ContextCompat.getColor(this, R.color.tuned_green)
+        val white = Color.WHITE
+
+        if (zoom < 1.5f) {
+            binding.btnZoom1x.setTextColor(green)
+            binding.btnZoom2x.setTextColor(white)
+        } else {
+            binding.btnZoom1x.setTextColor(white)
+            binding.btnZoom2x.setTextColor(green)
+        }
+    }
+
+    private fun showStatusBanner(text: String, isAlert: Boolean) {
+        bannerHandler.removeCallbacks(hideBannerRunnable)
+        binding.tvStatusBanner.text = text
+        binding.tvStatusBanner.setBackgroundResource(if (isAlert) R.drawable.badge_live_bg else R.drawable.badge_dark_bg)
+        binding.tvStatusBanner.visibility = View.VISIBLE
+        binding.tvStatusBanner.alpha = 0f
+        binding.tvStatusBanner.translationY = -25f
+        binding.tvStatusBanner.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(180)
+            .start()
+        bannerHandler.postDelayed(hideBannerRunnable, 1800)
+    }
+
+    private fun showZoomHud(zoom: Float) {
+        zoomHudHandler.removeCallbacks(hideZoomHudRunnable)
+        binding.tvZoomHud.text = String.format(Locale.US, "🔍 %.1fx", zoom)
+        binding.tvZoomHud.visibility = View.VISIBLE
+        binding.tvZoomHud.alpha = 1f
+        zoomHudHandler.postDelayed(hideZoomHudRunnable, 1400)
     }
 
     private fun confirmStopLive() {

@@ -118,6 +118,45 @@
             android:backgroundTint="#33FFFFFF" />
     </LinearLayout>
 
+    <!-- Banner de Feedback Animado Flutuante (ex: "Microfone Mutado", "Câmera Invertida") -->
+    <TextView
+        android:id="@+id/tvStatusBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/badge_dark_bg"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="🎙️ MICROFONE ATIVO"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:elevation="6dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/layoutTopBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Indicador HUD de Zoom Flutuante (Central, ex: "🔍 2.0x") -->
+    <TextView
+        android:id="@+id/tvZoomHud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/badge_dark_bg"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="10dp"
+        android:text="🔍 1.0x"
+        android:textColor="@color/tuned_green"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:elevation="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Indicador VU Meter de Áudio (Mesa de Som / Microfone) à esquerda -->
     <LinearLayout
         android:id="@+id/layoutAudioMeter"
@@ -155,6 +194,16 @@
             android:textColor="#00E676"
             android:textSize="10sp"
             android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/tvAudioSourceBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="IGREJA"
+            android:textColor="@color/tuned_green"
+            android:textSize="8sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Controles Rápidos da Câmera (Coluna à Direita) -->
@@ -168,6 +217,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Atalhos Rápidos de Zoom (1x e 2x) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/btnZoom1x"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/badge_dark_bg"
+                android:gravity="center"
+                android:text="1x"
+                android:textColor="@color/tuned_green"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/btnZoom2x"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/badge_dark_bg"
+                android:gravity="center"
+                android:text="2x"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
 
         <!-- Botão Trocar Câmera (Traseira <-> Frontal) com 1 toque -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton

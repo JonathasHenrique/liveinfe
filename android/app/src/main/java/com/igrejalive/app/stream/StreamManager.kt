@@ -47,8 +47,15 @@ class StreamManager(
 
     /**
      * Prepara a câmera Samsung e o canal de áudio com máxima fidelidade.
+     * @param is1080p Resolução 1080p Full HD vs 720p HD
+     * @param bitrateKbps Bitrate em kbps (ex: 4000)
+     * @param isChurchAudio True = Som da Igreja sem cancelador de ruído; False = Modo Mídia/Voz com filtro anti-eco
      */
-    fun prepareStream(is1080p: Boolean = true, bitrateKbps: Int = 4000): Boolean {
+    fun prepareStream(
+        is1080p: Boolean = true,
+        bitrateKbps: Int = 4000,
+        isChurchAudio: Boolean = true
+    ): Boolean {
         if (is1080p) {
             videoWidth = 1920
             videoHeight = 1080
@@ -59,8 +66,7 @@ class StreamManager(
             currentBitrate = 2500 * 1000
         }
 
-        // 1. Configurar Codificador de Vídeo H.264 por Hardware
-        // MediaCodec do chip Samsung (Exynos ou Snapdragon) gera vídeo sem esquentar o celular
+        // 1. Configurar Codificador de Vídeo H.264 por Hardware MediaCodec
         val videoReady = rtmpCamera?.prepareVideo(
             videoWidth,
             videoHeight,
@@ -69,16 +75,18 @@ class StreamManager(
             keyframeInterval
         ) ?: false
 
-        // 2. Configurar Áudio Profissional para Cultos
-        // Em celulares Samsung, usamos CAMCORDER para desativar os filtros de voz de ligação
-        // que cortam a bateria, baixo e teclado da igreja.
-        // O sinal entra em estéreo cristalino a 48kHz tanto do mic quanto da interface USB OTG.
+        // 2. Configurar Áudio (Som da Igreja vs Mídia)
+        // Som da Igreja: echoCanceler = false, noiseSuppressor = false (som natural sem cortes no louvor)
+        // Som de Mídia / Voz: echoCanceler = true, noiseSuppressor = true (reduz ruídos e eco de playback)
+        val echoCanceler = !isChurchAudio
+        val noiseSuppressor = !isChurchAudio
+
         val audioReady = rtmpCamera?.prepareAudio(
             audioBitrate,
             audioSampleRate,
-            true,  // isStereo: TRUE (Preserva estéreo da mesa de som)
-            false, // echoCanceler: FALSE (Desliga cancelador que corta instrumentos)
-            false  // noiseSuppressor: FALSE (Sem cortes de frequências graves/agudas)
+            true, // isStereo: TRUE (Preserva estéreo da mesa de som)
+            echoCanceler,
+            noiseSuppressor
         ) ?: false
 
         return videoReady && audioReady
@@ -185,13 +193,41 @@ class StreamManager(
     }
 
     /**
-     * Ajuste de Zoom suave (1x a 5x).
+     * Retorna o nível de zoom atual da câmera.
+     */
+    fun getZoom(): Float {
+        return try {
+            rtmpCamera?.zoom ?: 1.0f
+        } catch (e: Exception) {
+            1.0f
+        }
+    }
+
+    /**
+     * Retorna os limites suportados de zoom pelo sensor (ex: 1.0f a 8.0f).
+     */
+    fun getZoomRange(): android.util.Range<Float>? {
+        return try {
+            rtmpCamera?.zoomRange
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Ajuste de Zoom suave respeitando os limites da câmera Samsung.
      */
     fun setZoom(level: Float) {
         try {
-            rtmpCamera?.setZoom(level)
+            val range = rtmpCamera?.zoomRange
+            val min = range?.lower ?: 1.0f
+            val max = range?.upper ?: 5.0f
+            val clamped = level.coerceIn(min, max)
+            rtmpCamera?.setZoom(clamped)
         } catch (e: Exception) {
-            e.printStackTrace()
+            try {
+                rtmpCamera?.setZoom(level)
+            } catch (ignored: Exception) {}
         }
     }
 

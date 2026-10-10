@@ -120,6 +120,14 @@ class MainActivity : AppCompatActivity() {
             binding.tvStreamKeyStatus.text = "✅ Chave salva e configurada! Pronto para transmitir."
             binding.tvStreamKeyStatus.setTextColor(ContextCompat.getColor(this, R.color.tuned_green))
         }
+
+        // Carrega Fonte de Áudio Salva (Padrão: Som da Igreja)
+        val savedAudio = prefs.getString("saved_audio_source", "church")
+        if (savedAudio == "media") {
+            binding.rbAudioDeviceMedia.isChecked = true
+        } else {
+            binding.rbAudioChurchMic.isChecked = true
+        }
     }
 
     private fun setupListeners() {
@@ -151,6 +159,12 @@ class MainActivity : AppCompatActivity() {
                 binding.layoutGoogleMode.visibility = View.VISIBLE
                 prefs.edit().putString(PREF_AUTH_MODE, "google").apply()
             }
+        }
+
+        // Fonte de Áudio (Igreja x Mídia)
+        binding.rgAudioSource.setOnCheckedChangeListener { _, checkedId ->
+            val mode = if (checkedId == R.id.rbAudioDeviceMedia) "media" else "church"
+            prefs.edit().putString("saved_audio_source", mode).apply()
         }
 
         // Salva a chave automaticamente ao digitar
@@ -229,11 +243,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         val is1080p = binding.rb1080p.isChecked
+        val isChurchAudio = binding.rbAudioChurchMic.isChecked
         val title = binding.etLiveTitle.text?.toString()?.trim() ?: "Culto ao Vivo"
 
         val intent = Intent(this, LiveStreamActivity::class.java).apply {
             putExtra(LiveStreamActivity.EXTRA_RTMP_URL, fullTarget)
             putExtra(LiveStreamActivity.EXTRA_IS_1080P, is1080p)
+            putExtra(LiveStreamActivity.EXTRA_AUDIO_CHURCH, isChurchAudio)
             putExtra(LiveStreamActivity.EXTRA_TITLE, title)
         }
         startActivity(intent)
@@ -256,6 +272,7 @@ class MainActivity : AppCompatActivity() {
 
         val privacy = if (binding.rbPublic.isChecked) "public" else "unlisted"
         val is1080p = binding.rb1080p.isChecked
+        val isChurchAudio = binding.rbAudioChurchMic.isChecked
         val resolution = if (is1080p) "1080p" else "720p"
 
         @Suppress("DEPRECATION")
@@ -296,6 +313,7 @@ class MainActivity : AppCompatActivity() {
                     putExtra(LiveStreamActivity.EXTRA_WATCH_URL, result.watchUrl)
                     putExtra(LiveStreamActivity.EXTRA_ACCESS_TOKEN, token)
                     putExtra(LiveStreamActivity.EXTRA_IS_1080P, is1080p)
+                    putExtra(LiveStreamActivity.EXTRA_AUDIO_CHURCH, isChurchAudio)
                     putExtra(LiveStreamActivity.EXTRA_TITLE, title)
                 }
                 startActivity(intent)

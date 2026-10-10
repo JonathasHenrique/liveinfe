@@ -421,6 +421,38 @@
                         android:textColor="@color/text_secondary" />
                 </RadioGroup>
 
+                <!-- Fonte / Perfil de Áudio -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Fonte de Áudio da Transmissão"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rgAudioSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <RadioButton
+                        android:id="@+id/rbAudioChurchMic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="🎙️ Som da Igreja / Mesa de Som (Sem cortes no louvor)"
+                        android:textColor="@color/text_primary" />
+
+                    <RadioButton
+                        android:id="@+id/rbAudioDeviceMedia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📱 Som do Aparelho / Mídia (Microfone com filtro e músicas)"
+                        android:textColor="@color/text_secondary" />
+                </RadioGroup>
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
