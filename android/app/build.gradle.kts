@@ -18,7 +18,7 @@ android {
     }
 
     signingConfigs {
-        create("liveinfe") {
+        getByName("debug") {
             storeFile = file("liveinfe-debug.keystore")
             storePassword = "android"
             keyAlias = "androiddebugkey"
@@ -27,11 +27,8 @@ android {
     }
 
     buildTypes {
-        debug {
-            signingConfig = signingConfigs.getByName("liveinfe")
-        }
         release {
-            signingConfig = signingConfigs.getByName("liveinfe")
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
