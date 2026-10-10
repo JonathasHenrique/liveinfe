@@ -40,4 +40,13 @@
     <color name="vu_yellow">#F59E0B</color>
     <color name="vu_red">#EF4444</color>
     <color name="vu_inactive">#1E2738</color>
+
+    <!-- Compatibilidade para Drawables e Layouts -->
+    <color name="primary">#10B981</color>
+    <color name="primary_variant">#059669</color>
+    <color name="secondary">#F59E0B</color>
+    <color name="surface_variant">#1A2234</color>
+    <color name="accent_green">#10B981</color>
+    <color name="accent_red">#EF4444</color>
+    <color name="accent_yellow">#F59E0B</color>
 </resources>
