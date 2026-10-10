@@ -44,7 +44,12 @@ class GoogleAuthManager(private val context: Context) {
     suspend fun getAccessToken(account: GoogleSignInAccount): Result<String> = withContext(Dispatchers.IO) {
         try {
             val scopeStr = "oauth2:$YOUTUBE_SCOPE"
-            val token = GoogleAuthUtil.getToken(context, account.account ?: account.email ?: "", scopeStr)
+            val accountObj = account.account
+            val token: String = if (accountObj != null) {
+                GoogleAuthUtil.getToken(context, accountObj, scopeStr)
+            } else {
+                GoogleAuthUtil.getToken(context, account.email ?: "", scopeStr)
+            }
             Result.success(token)
         } catch (e: Exception) {
             Result.failure(e)

@@ -5,7 +5,7 @@ import android.media.MediaRecorder
 import android.view.MotionEvent
 import com.pedro.common.ConnectChecker
 import com.pedro.library.rtmp.RtmpCamera2
-import com.pedro.library.view.AspectRatioMode
+import com.pedro.encoder.utils.gl.AspectRatioMode
 import com.pedro.library.view.OpenGlView
 
 /**
@@ -45,7 +45,7 @@ class StreamManager(
     init {
         rtmpCamera = RtmpCamera2(openGlView, connectChecker)
         // Força aspecto rigoroso 16:9 no display OpenGL para nunca deformar a imagem do sensor
-        openGlView.setAspectRatioMode(AspectRatioMode.Adjust)
+        openGlView.setAspectRatioMode(AspectRatioMode.ADJUST)
     }
 
     /**
