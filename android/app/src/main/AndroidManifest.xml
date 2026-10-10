@@ -39,7 +39,8 @@
             android:name=".ui.LiveStreamActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:launchMode="singleTask"
             android:keepScreenOn="true" />
 
     </application>

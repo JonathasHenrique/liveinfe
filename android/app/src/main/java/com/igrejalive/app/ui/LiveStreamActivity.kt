@@ -1,5 +1,7 @@
 package com.igrejalive.app.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pedro.common.ConnectChecker
 import com.igrejalive.app.R
 import com.igrejalive.app.data.api.YouTubeApiService
@@ -201,15 +204,33 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
             animateFlashLight(isOn)
         }
 
-        // Compartilhar Link do YouTube
+        // Compartilhar / Copiar Link do YouTube sem derrubar a live
         binding.btnShareLive.setOnClickListener {
-            val url = watchUrl ?: "Live no YouTube"
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Assista ao nosso culto ao vivo: $url")
-                type = "text/plain"
-            }
-            startActivity(Intent.createChooser(sendIntent, "Compartilhar Link da Live"))
+            val url = watchUrl ?: "https://youtube.com/live"
+            
+            // 1. Copia imediatamente para o Clipboard
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Link da Transmissão LiveinFé", url)
+            clipboard.setPrimaryClip(clip)
+
+            showStatusBanner("📋 LINK COPIADO! Cole no WhatsApp", isAlert = false)
+
+            // 2. Diálogo seguro com aviso prévio
+            MaterialAlertDialogBuilder(this)
+                .setTitle("🔗 Link da Transmissão Copiado!")
+                .setMessage("O link da live já está na sua área de transferência:\n\n$url\n\nRecomendamos manter o celular nesta tela para não interromper a gravação da câmera. Deseja abrir o WhatsApp agora mesmo?")
+                .setPositiveButton("Manter na Live (Recomendado)") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setNeutralButton("Abrir WhatsApp") { _, _ ->
+                    val sendIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, "Assista ao nosso culto ao vivo: $url")
+                        type = "text/plain"
+                    }
+                    startActivity(Intent.createChooser(sendIntent, "Enviar pelo WhatsApp"))
+                }
+                .show()
         }
 
         // Botão Encerrar Transmissão
@@ -379,6 +400,33 @@ class LiveStreamActivity : AppCompatActivity(), ConnectChecker {
         runOnUiThread {
             binding.viewNetworkStatus.setBackgroundResource(R.drawable.circle_red)
             binding.tvBitrate.text = "Desconectado"
+            showStatusBanner("⚠️ Transmissão Desconectada", isAlert = true)
+            // Reconexão suave automática se o app ainda estiver aberto
+            if (!isFinishing && rtmpUrl.isNotEmpty()) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (!isFinishing && !streamManager.isStreaming()) {
+                        showStatusBanner("🔄 Reconectando ao YouTube...", isAlert = false)
+                        streamManager.startStream(rtmpUrl)
+                    }
+                }, 2500)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        try {
+            if (!streamManager.isOnPreview()) {
+                streamManager.startPreview()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // Se o RTMP desconectou enquanto o usuário estava em outro app:
+        if (!streamManager.isStreaming() && rtmpUrl.isNotEmpty()) {
+            showStatusBanner("🔄 Restaurando transmissão...", isAlert = false)
+            streamManager.startStream(rtmpUrl)
         }
     }
 

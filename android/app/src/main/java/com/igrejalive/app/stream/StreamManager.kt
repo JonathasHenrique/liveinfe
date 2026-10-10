@@ -43,6 +43,34 @@ class StreamManager(
 
     init {
         rtmpCamera = RtmpCamera2(openGlView, connectChecker)
+        setupSurfaceCallback()
+    }
+
+    private fun setupSurfaceCallback() {
+        openGlView.holder.addCallback(object : android.view.SurfaceHolder.Callback {
+            override fun surfaceCreated(holder: android.view.SurfaceHolder) {
+                try {
+                    if (rtmpCamera?.isOnPreview == false) {
+                        rtmpCamera?.startPreview()
+                        applySamsungOptimizations()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun surfaceChanged(holder: android.view.SurfaceHolder, format: Int, width: Int, height: Int) {}
+
+            override fun surfaceDestroyed(holder: android.view.SurfaceHolder) {
+                try {
+                    if (rtmpCamera?.isOnPreview == true) {
+                        rtmpCamera?.stopPreview()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
     }
 
     /**
@@ -232,6 +260,7 @@ class StreamManager(
     }
 
     fun isStreaming(): Boolean = rtmpCamera?.isStreaming == true
+    fun isOnPreview(): Boolean = rtmpCamera?.isOnPreview == true
 
     fun isFrontCamera(): Boolean = rtmpCamera?.isFrontCamera == true
 
