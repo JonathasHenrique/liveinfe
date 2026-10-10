@@ -221,7 +221,7 @@
         app:layout_constraintTop_toBottomOf="@id/layoutTopBar"
         app:layout_constraintBottom_toTopOf="@id/layoutBottomControls">
 
-        <!-- Atalhos Rápidos de Zoom (1x e 2x em Pílula Horizontal) -->
+        <!-- Atalhos Rápidos de Zoom (0.5x, 1x e 2x em Pílula Horizontal) -->
         <LinearLayout
             android:id="@+id/layoutZoomSelector"
             android:layout_width="wrap_content"
@@ -231,6 +231,21 @@
             android:background="@drawable/badge_dark_bg"
             android:padding="3dp"
             android:layout_marginBottom="12dp">
+
+            <!-- Câmera ultra-angular (0.5x): só aparece se o aparelho tiver/permitir -->
+            <TextView
+                android:id="@+id/btnZoom05x"
+                android:layout_width="36dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:text=".5x"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/btnZoom1x"
@@ -322,18 +337,64 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
+        <!-- Botão Travar Toques: evita zoom, foco ou botões acionados sem querer durante o culto -->
+        <Button
+            android:id="@+id/btnLockTouch"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:text="🔒 Travar toques"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#33FFFFFF" />
+
         <!-- Botão Vermelho de Encerrar Transmissão -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnStopLive"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:backgroundTint="@color/accent_red"
-            android:text="ENCERRAR TRANSMISSÃO"
+            android:text="SEGURE P/ ENCERRAR"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             app:cornerRadius="12dp"
             app:icon="@android:drawable/ic_delete"
             app:iconTint="#FFFFFF" />
     </LinearLayout>
+
+    <!-- Escudo de toques: cobre a tela inteira e engole qualquer toque enquanto estiver travado -->
+    <View
+        android:id="@+id/touchShield"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#01000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Único ponto ativo com a tela travada: segurar 2 segundos para destravar -->
+    <TextView
+        android:id="@+id/btnUnlockTouch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/badge_dark_bg"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp"
+        android:text="🔒 TOQUES TRAVADOS  •  segure 2s aqui para destravar"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

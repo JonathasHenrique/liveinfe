@@ -8,9 +8,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <!-- Android 13+: mostra a notificação "AO VIVO" enquanto o app está fora da tela -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Recursos de hardware opcionais/necessários -->
     <uses-feature android:name="android.hardware.camera" android:required="true" />
@@ -37,15 +40,19 @@
             </intent-filter>
         </activity>
 
-        <!-- Tela de Transmissão: Visualização de Câmera 16:9, PiP e Controles Rápidos -->
+        <!-- Tela de Transmissão: Visualização de Câmera 16:9 e Controles Rápidos -->
         <activity
             android:name=".ui.LiveStreamActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:supportsPictureInPicture="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|smallestScreenSize"
-            android:launchMode="singleTask"
-            android:keepScreenOn="true" />
+            android:launchMode="singleTask" />
+
+        <!-- Serviço em primeiro plano: mantém câmera, microfone e envio no ar com o app fora da tela -->
+        <service
+            android:name=".stream.StreamService"
+            android:exported="false"
+            android:foregroundServiceType="camera|microphone" />
 
     </application>
 

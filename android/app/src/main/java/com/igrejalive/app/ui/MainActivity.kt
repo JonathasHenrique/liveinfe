@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -88,6 +89,11 @@ class MainActivity : AppCompatActivity() {
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             permissionsNeeded.add(Manifest.permission.RECORD_AUDIO)
+        }
+        // Android 13+: necessário para mostrar a notificação "AO VIVO" com o app fora da tela
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.POST_NOTIFICATIONS)
         }
         if (permissionsNeeded.isNotEmpty()) {
             requestPermissionLauncher.launch(permissionsNeeded.toTypedArray())
@@ -203,17 +209,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Botão Compartilhar Link do Culto no WhatsApp com Antecedência (100% Seguro)
+        // Botão Compartilhar Link do Culto com Antecedência: usa o link PERMANENTE do canal
+        // (youtube.com/@canal/live), que sempre abre a live que estiver no ar.
+        // Toque longo para trocar o canal.
         binding.btnShareBeforeLive.setOnClickListener {
-            val title = binding.etLiveTitle.text?.toString()?.trim() ?: "Culto ao Vivo"
-            val textToSend = "A paz do Senhor! Assista ao nosso $title da Assembleia de Deus ao vivo pelo YouTube:\nhttps://youtube.com/live"
-            
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, textToSend)
-                type = "text/plain"
+            val saved = prefs.getString(LiveStreamActivity.PREF_CHANNEL_LIVE_URL, null)
+            if (saved.isNullOrBlank()) {
+                askChannelLink { link -> shareChannelLink(link) }
+            } else {
+                shareChannelLink(saved)
             }
-            startActivity(Intent.createChooser(sendIntent, "Compartilhar Link do Culto"))
+        }
+        binding.btnShareBeforeLive.setOnLongClickListener {
+            askChannelLink {
+                Toast.makeText(this, "Link do canal atualizado!", Toast.LENGTH_SHORT).show()
+            }
+            true
         }
 
         // Modo manual RTMP (Fallback dialog)
@@ -380,6 +391,55 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    /** Aceita "@canal", "youtube.com/@canal", "youtube.com/channel/UC..." e devolve o link /live permanente. */
+    private fun normalizeChannelLiveUrl(input: String): String? {
+        val text = input.trim()
+        if (text.isEmpty()) return null
+        Regex("UC[A-Za-z0-9_-]{22}").find(text)?.let {
+            return "https://www.youtube.com/channel/${it.value}/live"
+        }
+        Regex("@[A-Za-z0-9._-]+").find(text)?.let {
+            return "https://www.youtube.com/${it.value}/live"
+        }
+        return null
+    }
+
+    private fun askChannelLink(onSaved: (String) -> Unit) {
+        val input = android.widget.EditText(this).apply {
+            hint = "@seucanal  ou  youtube.com/channel/UC..."
+            setText(prefs.getString(LiveStreamActivity.PREF_CHANNEL_LIVE_URL, "")?.let { saved ->
+                Regex("@[A-Za-z0-9._-]+|UC[A-Za-z0-9_-]{22}").find(saved)?.value ?: ""
+            })
+            setSingleLine()
+        }
+        AlertDialog.Builder(this)
+            .setTitle("Link permanente do canal")
+            .setMessage("Informe o @ do canal da igreja no YouTube. Esse link sempre abre a live que estiver no ar, então você envia uma vez só.")
+            .setView(input)
+            .setPositiveButton("Salvar") { _, _ ->
+                val link = normalizeChannelLiveUrl(input.text.toString())
+                if (link == null) {
+                    Toast.makeText(this, "Não reconheci o canal. Use o @ (ex.: @minhaigreja) ou o link /channel/UC...", Toast.LENGTH_LONG).show()
+                } else {
+                    prefs.edit().putString(LiveStreamActivity.PREF_CHANNEL_LIVE_URL, link).apply()
+                    onSaved(link)
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun shareChannelLink(link: String) {
+        val title = binding.etLiveTitle.text?.toString()?.trim() ?: "Culto ao Vivo"
+        val textToSend = "A paz do Senhor! Assista ao nosso $title da Assembleia de Deus ao vivo pelo YouTube:\n$link"
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, textToSend)
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(sendIntent, "Compartilhar Link do Culto"))
+    }
+
     private fun showManualRtmpDialog() {
         val input = android.widget.EditText(this).apply {
             hint = "rtmp://a.rtmp.youtube.com/live2/SUA-CHAVE"
@@ -393,9 +453,14 @@ class MainActivity : AppCompatActivity() {
                 val url = input.text.toString().trim()
                 if (url.isNotEmpty()) {
                     prefs.edit().putString(PREF_STREAM_KEY, url).apply()
+                    val is1080p = binding.rb1080p.isChecked
+                    val isChurchAudio = binding.rbAudioChurchMic.isChecked
+                    val title = binding.etLiveTitle.text?.toString()?.trim() ?: "Culto ao Vivo"
                     val intent = Intent(this, LiveStreamActivity::class.java).apply {
                         putExtra(LiveStreamActivity.EXTRA_RTMP_URL, url)
-                        putExtra(LiveStreamActivity.EXTRA_IS_1080P, binding.rb1080p.isChecked)
+                        putExtra(LiveStreamActivity.EXTRA_IS_1080P, is1080p)
+                        putExtra(LiveStreamActivity.EXTRA_AUDIO_CHURCH, isChurchAudio)
+                        putExtra(LiveStreamActivity.EXTRA_TITLE, title)
                     }
                     startActivity(intent)
                 }
