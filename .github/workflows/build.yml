@@ -29,29 +29,11 @@ jobs:
       - name: Compilar APK (assembleDebug)
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-build.log
-
-      - name: Exibir log de erro do Gradle se falhar
-        if: failure()
-        run: |
-          echo "=== GRADLE FAILURE LOG ==="
-          tail -n 150 android/gradle-build.log
-
-      - name: Salvar Log de Erro para Diagnóstico
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gradle-failure-log
-          path: android/gradle-build.log
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Renomear APK para nome oficial LiveinFé
         run: |
-          echo "Buscando APKs gerados:"
-          find android/app/build -name "*.apk"
-          APK_FILE=$(find android/app/build -name "*.apk" | head -n 1)
-          echo "APK encontrado: $APK_FILE"
-          cp "$APK_FILE" liveinfe-v1.0.1.apk
-          ls -lh liveinfe-v1.0.1.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk liveinfe-v1.0.1.apk
 
       - name: Disponibilizar APK para Download (Artefato)
         uses: actions/upload-artifact@v4
