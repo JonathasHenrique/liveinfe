@@ -2,6 +2,8 @@
 
 [![Versão](https://img.shields.io/badge/vers%C3%A3o-1.1.1-10b981.svg?style=flat-square)](android/app/build.gradle.kts)
 [![Build](https://img.shields.io/badge/build-passando-brightgreen.svg?style=flat-square)](#-automa%C3%A7%C3%A3o-e-cicd)
+[![Apoiar](https://img.shields.io/badge/Apoiar-Mercado%20Pago-009EE3.svg?style=flat-square&logo=mercadopago)](https://link.mercadopago.com.br/johntechdicas)
+[![YouTube](https://img.shields.io/badge/YouTube-John%20TechDicas-FF0000.svg?style=flat-square&logo=youtube)](https://www.youtube.com/@johntechdicas)
 [![Android](https://img.shields.io/badge/Android-SDK%2024%20a%2034-3DDC84.svg?style=flat-square&logo=android)](https://developer.android.com)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9+-7F52FF.svg?style=flat-square&logo=kotlin)](https://kotlinlang.org)
 [![Pedro RootEncoder](https://img.shields.io/badge/Pedro%20RootEncoder-v2.4.6-FF6F00.svg?style=flat-square)](https://github.com/pedroSG94/RootEncoder)
@@ -32,6 +34,7 @@
 - [Automação e CI/CD](#-automa%C3%A7%C3%A3o-e-cicd)
 - [Simulador Web Preview](#-simulador-web-preview)
 - [Guia Operacional para Voluntários](#-guia-operacional-para-volunt%C3%A1rios)
+- [Apoie o Projeto](#-apoie-o-projeto)
 - [Avisos Legais](#-avisos-legais)
 - [Licença](#-licen%C3%A7a)
 
@@ -229,6 +232,20 @@ Abra `http://localhost:4180` no navegador para visualizar o protótipo.
 5. **Início da Transmissão**: Pressione o botão **`ENTRAR AO VIVO NO YOUTUBE`**;
 6. **Proteção de Tela**: Toque no ícone de cadeado para bloquear toques acidentais durante a transmissão;
 7. **Divulgação**: Utilize o atalho de compartilhamento para divulgar o link nos grupos da congregação.
+
+---
+
+## ❤️ Apoie o Projeto
+
+O **LiveinFé** é um projeto de código aberto, gratuito e sem fins comerciais, desenvolvido para servir igrejas e congregações com ferramentas profissionais e acessíveis de transmissão ao vivo.
+
+Se este aplicativo ajuda ou tem abençoado as transmissões da sua igreja, você pode apoiar voluntariamente o projeto com qualquer valor para ajudar nos custos contínuos de desenvolvimento e publicação:
+
+[![Apoiar via Mercado Pago](https://img.shields.io/badge/Apoiar%20via-Mercado%20Pago-009EE3?style=for-the-badge&logo=mercadopago&logoColor=white)](https://link.mercadopago.com.br/johntechdicas)
+
+👉 **Link de Apoio:** [link.mercadopago.com.br/johntechdicas](https://link.mercadopago.com.br/johntechdicas) *(Pix ou Cartão)*
+
+📺 Acompanhe tutoriais, novidades e demonstrações no canal **[John TechDicas no YouTube](https://www.youtube.com/@johntechdicas)**!
 
 ---
 
