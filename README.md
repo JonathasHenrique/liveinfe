@@ -11,10 +11,16 @@
 
 > **LiveinFé** (*trocadilho com "Viver em Fé"*) é um aplicativo nativo para Android desenvolvido para igrejas, ministérios e congregações realizarem transmissões ao vivo de cultos e eventos diretamente para o YouTube com máxima estabilidade, áudio de alta fidelidade e operação simplificada para voluntários.
 
+### 📥 Download Rápido (Releases Oficiais)
+
+[![Baixar APK Android](https://img.shields.io/badge/Download-Android_APK_(v1.1.1)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.1.apk)
+[![Ver Todas as Releases](https://img.shields.io/badge/Ver_Todas-Releases_no_GitHub-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases)
+
 ---
 
 ## 📋 Sumário
 
+- [Download e Instalação Rápida](#-download-e-instala%C3%A7%C3%A3o-r%C3%A1pida)
 - [Visão Geral](#-vis%C3%A3o-geral)
 - [Principais Funcionalidades da Versão v1.1.1](#-principais-funcionalidades-da-vers%C3%A3o-v111)
 - [Arquitetura e Recursos Técnicos](#-arquitetura-e-recursos-t%C3%A9cnicos)
@@ -37,6 +43,21 @@
 - [Apoie o Projeto](#-apoie-o-projeto)
 - [Avisos Legais](#-avisos-legais)
 - [Licença](#-licen%C3%A7a)
+
+---
+
+## 📥 Download e Instalação Rápida
+
+| Plataforma | Pacote / Arquivo | Download Direto | Versão Oficial |
+| :--- | :--- | :--- | :--- |
+| **Android** (Celular da Transmissão) | `liveinfe-v1.1.1.apk` | [⬇️ **Baixar APK Direto**](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.1.apk) | [v1.1.1 (Latest)](https://github.com/JonathasHenrique/liveinfe/releases/latest) |
+
+> 📌 **Como instalar no celular da equipe de transmissão:**  
+> 1. Toque no link de download acima para baixar o arquivo `liveinfe-v1.1.1.apk`;  
+> 2. Ao concluir o download, abra o arquivo no celular e autorize a instalação de fontes desconhecidas no navegador;  
+> 3. Abra o aplicativo, selecione o canal da igreja com 1 clique e inicie a transmissão com total estabilidade.  
+>  
+> 💡 **Histórico e outras versões:** Acesse a página oficial de [**Releases no GitHub**](https://github.com/JonathasHenrique/liveinfe/releases).
 
 ---
 
