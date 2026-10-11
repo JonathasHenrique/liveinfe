@@ -36,12 +36,13 @@ jobs:
           TAG_NAME="${{ github.ref_name }}"
           if [ -z "$TAG_NAME" ]; then TAG_NAME="v1.0.2"; fi
           cp android/app/build/outputs/apk/debug/app-debug.apk "liveinfe-${TAG_NAME}.apk"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "liveinfe.apk"
 
       - name: Disponibilizar APK para Download (Artefato)
         uses: actions/upload-artifact@v4
         with:
           name: LiveinFe-Android-APK
-          path: liveinfe-*.apk
+          path: liveinfe*.apk
           retention-days: 30
 
   release:
@@ -61,7 +62,7 @@ jobs:
       - name: Criar Release e Anexar APK
         uses: softprops/action-gh-release@v2
         with:
-          files: release-assets/liveinfe-*.apk
+          files: release-assets/liveinfe*.apk
           name: "LiveinFé ${{ github.ref_name }}"
           generate_release_notes: true
         env:

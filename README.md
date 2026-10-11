@@ -1,6 +1,6 @@
 # 🔴 LiveinFé — Transmissão Ministerial para o YouTube
 
-[![Versão](https://img.shields.io/badge/Versao-v1.1.1-10b981?style=flat-square)](android/app/build.gradle.kts)
+[![Versão](https://img.shields.io/github/v/release/JonathasHenrique/liveinfe?style=flat-square&color=10b981&label=Versao)](https://github.com/JonathasHenrique/liveinfe/releases/latest)
 [![Build](https://img.shields.io/badge/Build-passando-brightgreen?style=flat-square)](#-automa%C3%A7%C3%A3o-e-cicd)
 [![Apoiar](https://img.shields.io/badge/Apoiar-Mercado_Pago-009ee3?style=flat-square)](https://link.mercadopago.com.br/johntechdicas)
 [![YouTube](https://img.shields.io/badge/YouTube-John_TechDicas-red?style=flat-square)](https://www.youtube.com/@johntechdicas)
@@ -11,9 +11,9 @@
 
 > **LiveinFé** (*trocadilho com "Viver em Fé"*) é um aplicativo nativo para Android desenvolvido para igrejas, ministérios e congregações realizarem transmissões ao vivo de cultos e eventos diretamente para o YouTube com máxima estabilidade, áudio de alta fidelidade e operação simplificada para voluntários.
 
-### 📥 Download Rápido (Releases Oficiais)
+### 📥 Download Rápido (Versão Mais Recente)
 
-[![Baixar APK Android](https://img.shields.io/badge/Download-Android_APK_(v1.1.1)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.1.apk)
+[![Baixar APK Android](https://img.shields.io/badge/Download-Android_APK_(Latest)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases/latest)
 [![Ver Todas as Releases](https://img.shields.io/badge/Ver_Todas-Releases_no_GitHub-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases)
 
 ---
