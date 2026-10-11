@@ -1,13 +1,13 @@
 # 🔴 LiveinFé — Transmissão Ministerial para o YouTube
 
-[![Versão](https://img.shields.io/badge/versao-1.1.1-10b981.svg?style=flat-square)](android/app/build.gradle.kts)
-[![Build](https://img.shields.io/badge/build-passando-brightgreen.svg?style=flat-square)](#-automa%C3%A7%C3%A3o-e-cicd)
-[![Apoiar](https://img.shields.io/badge/Apoiar-Mercado_Pago-009ee3.svg?style=flat-square&logo=mercadopago&logoColor=white)](https://link.mercadopago.com.br/johntechdicas)
-[![YouTube](https://img.shields.io/badge/YouTube-John_TechDicas-ff0000.svg?style=flat-square&logo=youtube)](https://www.youtube.com/@johntechdicas)
-[![Android](https://img.shields.io/badge/Android-SDK_24_a_34-3ddc84.svg?style=flat-square&logo=android)](https://developer.android.com)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9+-7f52ff.svg?style=flat-square&logo=kotlin)](https://kotlinlang.org)
-[![Pedro RootEncoder](https://img.shields.io/badge/Pedro_RootEncoder-v2.4.6-ff6f00.svg?style=flat-square)](https://github.com/pedroSG94/RootEncoder)
-[![Java](https://img.shields.io/badge/Java-21_Temurin-ed8b00.svg?style=flat-square&logo=openjdk)](https://adoptium.net)
+[![Versão](https://img.shields.io/badge/Versao-v1.1.1-10b981?style=flat-square)](android/app/build.gradle.kts)
+[![Build](https://img.shields.io/badge/Build-passando-brightgreen?style=flat-square)](#-automa%C3%A7%C3%A3o-e-cicd)
+[![Apoiar](https://img.shields.io/badge/Apoiar-Mercado_Pago-009ee3?style=flat-square)](https://link.mercadopago.com.br/johntechdicas)
+[![YouTube](https://img.shields.io/badge/YouTube-John_TechDicas-red?style=flat-square)](https://www.youtube.com/@johntechdicas)
+[![Android](https://img.shields.io/badge/Android-SDK_24+-3ddc84?style=flat-square)](https://developer.android.com)
+[![Kotlin](https://img.shields.io/badge/Kotlin-v1.9+-7f52ff?style=flat-square)](https://kotlinlang.org)
+[![Pedro RootEncoder](https://img.shields.io/badge/Pedro_RootEncoder-v2.4.6-orange?style=flat-square)](https://github.com/pedroSG94/RootEncoder)
+[![Java](https://img.shields.io/badge/Java-21_Temurin-blue?style=flat-square)](https://adoptium.net)
 
 > **LiveinFé** (*trocadilho com "Viver em Fé"*) é um aplicativo nativo para Android desenvolvido para igrejas, ministérios e congregações realizarem transmissões ao vivo de cultos e eventos diretamente para o YouTube com máxima estabilidade, áudio de alta fidelidade e operação simplificada para voluntários.
 
