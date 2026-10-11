@@ -1,34 +1,121 @@
-# 🔴 LiveinFé - Transmissão Ministerial para o YouTube
+# 🔴 LiveinFé — Transmissão Ministerial para o YouTube
 
-**LiveinFé** (*trocadilho com "Viver em Fé"*) é um aplicativo nativo para Android desenvolvido sob medida para igrejas e ministérios realizarem transmissões ao vivo de cultos para o YouTube.
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.1.1-10b981.svg?style=flat-square)](android/app/build.gradle.kts)
+[![Build](https://img.shields.io/badge/build-passando-brightgreen.svg?style=flat-square)](#-automa%C3%A7%C3%A3o-e-cicd)
+[![Android](https://img.shields.io/badge/Android-SDK%2024%20a%2034-3DDC84.svg?style=flat-square&logo=android)](https://developer.android.com)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9+-7F52FF.svg?style=flat-square&logo=kotlin)](https://kotlinlang.org)
+[![Pedro RootEncoder](https://img.shields.io/badge/Pedro%20RootEncoder-v2.4.6-FF6F00.svg?style=flat-square)](https://github.com/pedroSG94/RootEncoder)
+[![Java](https://img.shields.io/badge/Java-21%20Temurin-ED8B00.svg?style=flat-square&logo=openjdk)](https://adoptium.net)
 
-O aplicativo segue o padrão visual do afinador da **Bíblia do Instrumentista**, trazendo como cor primária de ação o **Verde Afinador Vibrante (`#10B981`)**, a **Bíblia Sagrada Aberta** com ondas de transmissão (em total consonância com a tradição da Assembleia de Deus, sem símbolos de cruz), fundo Midnight Navy e máxima simplicidade operacional para os voluntários.
-
----
-
-## ✨ Principais Diferenciais do LiveinFé
-
-1. **Botão de Início Verde Afinador:**
-   - Botão **`ENTRAR AO VIVO NO YOUTUBE`** com o gradiente esmeralda vibrante idêntico ao botão "Ativar Afinador" (`#10B981` -> `#059669`).
-2. **Logo Bíblia da Palavra & Transmissão:**
-   - Squircle combinando a **Bíblia Sagrada Aberta** e ondas de propagação da live para o mundo.
-3. **Vídeo 16:9 Nativo Travado (Nunca Estica):**
-   - Resolve o problema do app oficial do YouTube (que estica o sensor 4:3 para 16:9).
-   - Usa **OpenGL ES** e o motor **Pedro RootEncoder** com *Center Crop* inteligente em 1080p Full HD (1920x1080) e 720p HD.
-4. **1 Toque para Entrar Ao Vivo (Sem Tokens Manuais):**
-   - Automatiza a **YouTube Live Streaming API v3** (OAuth 2.0). Cria o evento de transmissão e configura o stream RTMP com 1 clique, eliminando as falhas do IRL Pro.
-5. **VU Meter de Áudio com a Paleta do Afinador:**
-   - Medidor de áudio de alta precisão na tela: **Verde** (som afinado e seguro), **Dourado** (ótimo volume) e **Vermelho** (alerta de clipping/distorção).
-6. **Atalhos Rápidos de Cultos:**
-   - Chips para preencher o título em 1 toque: *Culto de Celebração*, *Culto de Oração*, *Encontro de Jovens*, *Santa Ceia*.
-7. **Troca Rápida de Câmera:**
-   - Alterna instantaneamente entre o púlpito e a nave da igreja sem derrubar o sinal da transmissão.
-8. **Suporte para Mesa de Som via USB OTG:**
-   - Entrada estéreo a 48kHz limpa e sem filtros agressivos de voz, garantindo dinâmica total para instrumentos e louvor.
+> **LiveinFé** (*trocadilho com "Viver em Fé"*) é um aplicativo nativo para Android desenvolvido para igrejas, ministérios e congregações realizarem transmissões ao vivo de cultos e eventos diretamente para o YouTube com máxima estabilidade, áudio de alta fidelidade e operação simplificada para voluntários.
 
 ---
 
-## 📁 Estrutura de Arquivos
+## 📋 Sumário
+
+- [Visão Geral](#-vis%C3%A3o-geral)
+- [Principais Funcionalidades da Versão v1.1.1](#-principais-funcionalidades-da-vers%C3%A3o-v111)
+- [Arquitetura e Recursos Técnicos](#-arquitetura-e-recursos-t%C3%A9cnicos)
+  - [1. Proporção 16:9 Nativa sem Distorções (OpenGL ES)](#1-propor%C3%A7%C3%A3o-169-nativa-sem-distor%C3%A7%C3%B5es-opengl-es)
+  - [2. Captura de Áudio para Louvor e Mesas de Som (USB OTG)](#2-captura-de-%C3%A1udio-para-louvor-e-mesas-de-som-usb-otg)
+  - [3. Serviço em Primeiro Plano (Foreground Service) Anti-Interrupções](#3-servi%C3%A7o-em-primeiro-plano-foreground-service-anti-interrup%C3%A7%C3%B5es)
+  - [4. Bitrate Adaptativo (ABR) e Reconexão Contínua](#4-bitrate-adaptativo-abr-e-reconex%C3%A3o-cont%C3%ADnua)
+  - [5. Suporte a Câmeras Ultra-Wide e Controle de Zoom](#5-suporte-a-c%C3%A2meras-ultra-wide-e-controle-de-zoom)
+  - [6. Trava de Segurança contra Toques Acidentais (Touch Lock)](#6-trava-de-seguran%C3%A7a-contra-toques-acidentais-touch-lock)
+  - [7. Link Permanente e Compartilhamento Rápido](#7-link-permanente-e-compartilhamento-r%C3%A1pido)
+  - [8. Integração Direta com a YouTube Live Streaming API v3](#8-integra%C3%A7%C3%A3o-direta-com-a-youtube-live-streaming-api-v3)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Configuração de Credenciais no Google Cloud Console](#-configura%C3%A7%C3%A3o-de-credenciais-no-google-cloud-console)
+- [Como Compilar o Aplicativo](#-como-compilar-o-aplicativo)
+  - [Pelo Android Studio](#pelo-android-studio)
+  - [Pela Linha de Comando (Gradle)](#pela-linha-de-comando-gradle)
+- [Automação e CI/CD](#-automa%C3%A7%C3%A3o-e-cicd)
+- [Simulador Web Preview](#-simulador-web-preview)
+- [Guia Operacional para Voluntários](#-guia-operacional-para-volunt%C3%A1rios)
+- [Avisos Legais](#-avisos-legais)
+- [Licença](#-licen%C3%A7a)
+
+---
+
+## 🌟 Visão Geral
+
+A transmissão ao vivo em congregações costuma ser operada por voluntários e equipes de comunicação que necessitam de ferramentas confiáveis, intuitivas e livres de complexidades técnicas excessivas (como digitação repetitiva de URLs de servidores e chaves de streaming em cada culto).
+
+O **LiveinFé** foi projetado para atender especificamente a esse cenário:
+- **Automação Completa**: Conexão segura via conta Google autorizada do canal e criação do evento de transmissão em apenas 1 toque;
+- **Arquitetura Resiliente**: O envio de áudio e vídeo é sustentado por um serviço nativo desacoplado da interface, garantindo que a transmissão permaneça ativa mesmo caso o aplicativo saia de foco;
+- **Interface Focada no Operador**: Visual limpo em tons escuros (*Midnight Navy*) com botões de ação bem contrastados e atalhos rápidos com títulos de cultos programáveis.
+
+---
+
+## 🚀 Principais Funcionalidades da Versão v1.1.1
+
+| Funcionalidade | Descrição Técnica | Benefício Prático |
+| :--- | :--- | :--- |
+| **Serviço Persistente em Primeiro Plano** | Transmissão gerenciada por `StreamService` com notificação ativa no sistema. | A live permanece no ar caso o aparelho receba chamadas, a tela seja desligada ou outros apps sejam acessados. |
+| **Bitrate Adaptativo (ABR)** | Ajuste dinâmico de taxa de dados de acordo com a vazão de rede. | Previne congelamentos e quedas para os espectadores durante oscilações do sinal de internet. |
+| **Reconexão Automática Contínua** | Mecanismo de retomada de conexão sem limite de tentativas manuais. | Restabelece a transmissão de forma transparente caso ocorram quedas temporárias de rede. |
+| **Câmera Ultra-Wide (0.5x)** | Seleção de lentes com amplo campo de visão em aparelhos com múltiplos sensores. | Facilita o enquadramento de todo o altar, púlpito e congregação mesmo em espaços menores. |
+| **Trava de Toques (Touch Lock)** | Bloqueio do visor com destravamento intencional por pressão de 2 segundos. | Evita interrupções acidentais provocadas por esbarrões no suporte ou manuseio do celular. |
+| **Link Permanente do Canal** | Integração direta ao endereço permanente do canal (`/live`). | Permite à igreja divulgar um link único e contínuo para seus membros. |
+| **Compartilhamento Rápido** | Atalhos para cópia do link e envio para aplicativos de mensagens. | Agilidade imediata na divulgação do culto no início da transmissão. |
+
+---
+
+## ⚙️ Arquitetura e Recursos Técnicos
+
+### 1. Proporção 16:9 Nativa sem Distorções (OpenGL ES)
+- **Ajuste de Sensor (Center Crop)**: Enquadramento com correção geométrica via renderizador OpenGL ES, assegurando que o vídeo seja transmitido exatamente na proporção widescreen 16:9 sem distorções horizontais ou verticais.
+- **Resoluções Suportadas**:
+  - **1080p Full HD**: 1920x1080 a 30 FPS, Bitrate de ~4.000 kbps, intervalo de quadros-chave (GOP) calibrado para 2 segundos;
+  - **720p HD**: 1280x720 a 30 FPS, Bitrate de ~2.500 kbps (recomendado para conexões móveis mais restritas).
+- **Codificação por Hardware**: Utilização de codificadores H.264/AVC nativos via `MediaCodec` do Android para baixo consumo de bateria e mínimo aquecimento térmico.
+
+### 2. Captura de Áudio para Louvor e Mesas de Som (USB OTG)
+- **Áudio de Alta Qualidade**: Codificação AAC Estéreo a 48.000 Hz e 128 kbps.
+- **Perfil de Gravação Otimizado**: Configuração de entrada de áudio via fonte de captura que evita filtros agressivos de cancelamento de ruído vocal, preservando a dinâmica musical de instrumentos, vozes e ambientação do culto.
+- **Compatibilidade com Interfaces e Mesas**: Suporte à entrada de som estéreo proveniente de mesas de áudio conectadas via cabo USB OTG ou adaptadores de áudio compatíveis.
+- **VU Meter Graduado**: Monitoramento visual dos níveis de sinal:
+  - 🟢 **Faixa Segura** (-36 a -12 dB);
+  - 🟡 **Nível Ideal** (-12 a -3 dB);
+  - 🔴 **Alerta de Saturação** (> -3 dB).
+
+### 3. Serviço em Primeiro Plano (Foreground Service) Anti-Interrupções
+A transmissão reside em uma instância de serviço do Android (`StreamService`):
+- Declarado com permissões de primeiro plano para câmera e microfone (`camera|microphone`);
+- A atividade da tela (`LiveStreamActivity`) conecta-se ao serviço apenas para projetar a prévia na tela;
+- Permite minimizar o app, atender a eventos prioritários do sistema operacional ou apagar a tela sem derrubar o fluxo RTMP.
+
+### 4. Bitrate Adaptativo (ABR) e Reconexão Contínua
+- Monitoramento contínuo da fila de pacotes RTMP; se a largura de banda de upload diminuir, a taxa de bits é temporariamente reduzida para evitar perda de pacotes;
+- Retorno automático ao bitrate configurado quando a conexão estabilizar;
+- Verificação ativa do socket de conexão para identificar quedas silenciosas de sinal e reconectar de forma transparente.
+
+### 5. Suporte a Câmeras Ultra-Wide e Controle de Zoom
+- Identificação de câmeras grande-angulares disponíveis no hardware via `CameraManager`;
+- Botões de seleção direta de ampliação (`0.5x`, `1x`, `2x`);
+- Controle contínuo de zoom através de gesto de pinça na tela (pinch-to-zoom);
+- Alternância dinâmica entre câmera frontal e traseira mantendo o fluxo ativo.
+
+### 6. Trava de Segurança contra Toques Acidentais (Touch Lock)
+- Ativação do modo de proteção por botão na barra de controle;
+- Desativa todos os comandos de encerramento e ajuste no visor;
+- Desbloqueio seguro por pressão mantida durante 2 segundos com confirmação háptica (vibração) e aviso visual.
+
+### 7. Link Permanente e Compartilhamento Rápido
+- Suporte a links canônicos do canal (`/@seucanal/live`);
+- Cópia segura da URL do evento gerado com retorno visual;
+- Acesso à folha de compartilhamento nativa do sistema operacional para envio direto aos canais de comunicação da congregação.
+
+### 8. Integração Direta com a YouTube Live Streaming API v3
+- Autenticação OAuth 2.0 segura utilizando Google Sign-In;
+- Criação automatizada de transmissões ao vivo com definição de títulos, descrições e status de privacidade (*Público*, *Não Listado* para testes e *Privado*);
+- Criação e associação instantânea de fluxo de transmissão RTMP sem requerer inserção manual de credenciais;
+- Parâmetros configurados para evitar encerramento involuntário do evento por oscilações temporárias de conexão.
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```
 igreja-live/
@@ -36,37 +123,122 @@ igreja-live/
 │   ├── app/
 │   │   ├── src/main/
 │   │   │   ├── java/com/igrejalive/app/
-│   │   │   │   ├── auth/           # Login Google & Token OAuth 2.0
+│   │   │   │   ├── auth/           # Gerenciamento de login e tokens OAuth
 │   │   │   │   │   └── GoogleAuthManager.kt
-│   │   │   │   ├── data/           # YouTube Data API v3 (Live Streaming)
+│   │   │   │   ├── data/           # Comunicação com a YouTube Data API v3
 │   │   │   │   │   ├── model/YouTubeModels.kt
 │   │   │   │   │   └── api/YouTubeApiService.kt
-│   │   │   │   ├── stream/         # Pedro RootEncoder & OpenGL 16:9
-│   │   │   │   │   └── StreamManager.kt
-│   │   │   │   └── ui/             # Telas do Voluntário & VU Meter
-│   │   │   │       ├── MainActivity.kt       # Configuração & Chips de Culto
-│   │   │   │       ├── LiveStreamActivity.kt # HUD da Live em Tempo Real
-│   │   │   │       └── VuMeterView.kt        # Medidor de Áudio Estilo Afinador
+│   │   │   │   ├── stream/         # Transmissão de vídeo, áudio e Service
+│   │   │   │   │   ├── StreamManager.kt    # Parâmetros de codificação e ABR
+│   │   │   │   │   └── StreamService.kt    # Foreground Service persistente
+│   │   │   │   └── ui/             # Interfaces com o usuário
+│   │   │   │       ├── MainActivity.kt       # Tela inicial e configuração
+│   │   │   │       ├── LiveStreamActivity.kt # Interface de transmissão ativa
+│   │   │   │       └── VuMeterView.kt        # Medidor visual de níveis de áudio
 │   │   │   ├── res/
-│   │   │   │   ├── drawable/       # ic_liveinfe_logo, bg_gold_gradient, etc.
-│   │   │   │   ├── layout/         # activity_main.xml & activity_live_stream.xml
-│   │   │   │   └── values/         # colors.xml, strings.xml, themes.xml
-│   │   │   └── AndroidManifest.xml # Permissões e Configuração de Tela
-│   │   └── build.gradle.kts
-│   ├── build.gradle.kts
-│   └── settings.gradle.kts
+│   │   │   │   ├── drawable/       # Ícones e elementos visuais
+│   │   │   │   ├── layout/         # Telas em XML (layouts)
+│   │   │   │   └── values/         # Cores, textos e estilos
+│   │   │   └── AndroidManifest.xml # Configuração de permissões e serviços
+│   │   ├── build.gradle.kts        # Configurações do módulo do aplicativo
+│   │   └── liveinfe-debug.keystore # Chave de assinatura para ambiente de desenvolvimento
+│   ├── build.gradle.kts            # Configurações raiz do Gradle
+│   ├── settings.gradle.kts         # Módulos do projeto
+│   └── gradlew                     # Executável do Gradle Wrapper
 │
-└── web-preview/                     # Simulador Interativo Web (porta 4180)
-    ├── index.html                   # Mockup do Android com Status Bar e HUD
-    ├── style.css                    # Identidade Visual Bíblia do Instrumentista
-    └── app.js                       # Lógica de Transmissão e Medidor de Som
+├── .github/workflows/
+│   └── build.yml                    # Pipeline de compilação contínua no GitHub Actions
+│
+└── web-preview/                     # Simulador de demonstração web
+    ├── index.html                   # Estrutura do simulador
+    ├── style.css                    # Estilos visuais da demonstração
+    └── app.js                       # Comportamento interativo simulado
 ```
 
 ---
 
-## 🚀 Como Compilar o APK no Android Studio
+## 🔑 Configuração de Credenciais no Google Cloud Console
 
-1. Abra a pasta `igreja-live/android` no **Android Studio**;
-2. Aguarde a sincronização automática do Gradle;
-3. Vá em **Build > Build Bundle(s) / APK(s) > Build APK(s)**;
-4. Instale o arquivo `app-debug.apk` gerado no celular da equipe de transmissão.
+Para habilitar a comunicação direta com o canal da congregação:
+
+1. Acesse o [Google Cloud Console](https://console.cloud.google.com/);
+2. Crie ou selecione o projeto correspondente à igreja;
+3. No menu **APIs e Serviços > Biblioteca**, habilite a **YouTube Data API v3**;
+4. Na seção **Tela de consentimento OAuth**, configure os dados institucionais e inclua o escopo:
+   - `https://www.googleapis.com/auth/youtube`
+5. Em **Credenciais**, gere um **ID do cliente OAuth 2.0**:
+   - **Tipo**: Aplicativo Android
+   - **Nome do pacote**: `com.igrejalive.app`
+   - **Impressão digital SHA-1**: Obtenha a assinatura do keystore utilizado para compilar o APK:
+     ```bash
+     keytool -list -v -keystore android/app/liveinfe-debug.keystore -alias androiddebugkey -storepass android -keypass android
+     ```
+
+---
+
+## 🔨 Como Compilar o Aplicativo
+
+### Requisitos de Ambiente
+- **Android Studio** (versão Ladybug 2024.2 ou superior recomendada)
+- **JDK 17 ou 21**
+- **Android SDK Platform 34** instalada no ambiente
+
+### Pelo Android Studio
+1. Abra o diretório `igreja-live/android` no **Android Studio**;
+2. Aguarde o término da sincronização do Gradle;
+3. Conecte o aparelho Android com a opção de depuração USB ativa;
+4. Selecione o menu **Build > Build Bundle(s) / APK(s) > Build APK(s)**;
+5. O pacote compilado estará disponível na pasta:  
+   `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+### Pela Linha de Comando (Gradle)
+```bash
+cd android
+chmod +x gradlew
+./gradlew assembleDebug --no-daemon
+```
+
+---
+
+## 🤖 Automação e CI/CD
+
+O repositório dispõe de pipeline no **GitHub Actions** (`.github/workflows/build.yml`):
+- A cada alteração enviada ao branch principal, o ambiente compila e valida o projeto utilizando Java 21;
+- Ao registrar tags de versão (por exemplo, `v1.1.1`), o artefato `liveinfe-v1.1.1.apk` é compilado automaticamente e publicado na área de **Releases** do repositório para distribuição imediata.
+
+---
+
+## 🌐 Simulador Web Preview
+
+O projeto disponibiliza uma pasta `web-preview/` contendo um demonstrador para testes de interface em navegadores web:
+
+```bash
+cd web-preview
+python3 -m http.server 4180
+```
+Abra `http://localhost:4180` no navegador para visualizar o protótipo.
+
+---
+
+## 📖 Guia Operacional para Voluntários
+
+1. **Montagem**: Posicione o dispositivo móvel em suporte estável ou tripé, no formato horizontal (paisagem);
+2. **Conexão de Áudio**: Caso utilize mesa de som, conecte o cabo à porta do smartphone antes de abrir o aplicativo;
+3. **Identificação do Culto**: Selecione um dos botões rápidos com o título do culto desejado ou digite um título personalizado;
+4. **Enquadramento**: Escolha a lente adequada (`0.5x` para templos compactos ou `1x` para visão padrão);
+5. **Início da Transmissão**: Pressione o botão **`ENTRAR AO VIVO NO YOUTUBE`**;
+6. **Proteção de Tela**: Toque no ícone de cadeado para bloquear toques acidentais durante a transmissão;
+7. **Divulgação**: Utilize o atalho de compartilhamento para divulgar o link nos grupos da congregação.
+
+---
+
+## ⚖️ Avisos Legais
+
+- **Marcas Registradas**: *YouTube* e *Android* são marcas registradas de titularidade de seus respectivos detentores de direitos. O uso destes termos neste projeto possui caráter meramente descritivo e de integração técnica com suas respectivas APIs públicas e plataformas.
+- **Isenção de Vínculo**: Este aplicativo é um projeto independente de código aberto desenvolvido para fins ministeriais e comunitários, sem vínculo institucional ou endosso formal com serviços de terceiros.
+
+---
+
+## 📜 Licença
+
+Distribuído sob a licença **MIT**. Consulte o arquivo de licença do projeto para mais detalhes.
