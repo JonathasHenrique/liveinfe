@@ -1,6 +1,7 @@
 # 🔴 LiveinFé — Transmissão Ministerial para o YouTube
 
 [![Versão](https://img.shields.io/github/v/release/JonathasHenrique/liveinfe?style=flat-square&color=10b981&label=Versao)](https://github.com/JonathasHenrique/liveinfe/releases/latest)
+[![Licença](https://img.shields.io/badge/Licen%C3%A7a-CC_BY--NC--SA_4.0-red?style=flat-square)](LICENSE)
 [![Build](https://img.shields.io/badge/Build-passando-brightgreen?style=flat-square)](#-automa%C3%A7%C3%A3o-e-cicd)
 [![Apoiar](https://img.shields.io/badge/Apoiar-Mercado_Pago-009ee3?style=flat-square)](https://link.mercadopago.com.br/johntechdicas)
 [![YouTube](https://img.shields.io/badge/YouTube-John_TechDicas-red?style=flat-square)](https://www.youtube.com/@johntechdicas)
@@ -282,6 +283,15 @@ Se este aplicativo ajuda ou tem abençoado as transmissões da sua igreja, você
 
 ---
 
-## 📜 Licença
+## 📜 Licença e Direitos Autorais
 
-Distribuído sob a licença **MIT**. Consulte o arquivo de licença do projeto para mais detalhes.
+Copyright © 2026 **Jonathas Henrique** ([@JonathasHenrique](https://github.com/JonathasHenrique) / [John TechDicas](https://www.youtube.com/@johntechdicas)). Todos os direitos reservados.
+
+Distribuído sob os termos da licença internacional **[Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional (CC BY-NC-SA 4.0)](LICENSE)**:
+
+* 🕊️ **Livre e Gratuito para o Ministério:** Concedido gratuitamente para uso pessoal, congregações, igrejas e ministérios de transmissão ao vivo.
+* 🚫 **Proibição Estrita de Lucro por Terceiros (NC):** É terminantemente vedada a venda, cobrança, comercialização em lojas de aplicativos (Google Play, etc.) ou inclusão deste software e seus derivados em produtos comerciais por terceiros sem autorização prévia e expressa por escrito do autor.
+* 🔄 **CompartilhaIgual Obrigatório (*Copyleft* - SA):** Qualquer alteração, melhoria ou *fork* deste projeto deve, obrigatoriamente, manter o código-fonte 100% aberto e ser distribuído sob esta mesma licença exata. É proibido fechar o código-fonte.
+* ✍️ **Atribuição Obrigatória (BY):** A autoria original de Jonathas Henrique deve ser mantida de forma destacada em qualquer redistribuição ou bifurcação.
+
+Para o texto jurídico integral, consulte o arquivo [**`LICENSE`**](LICENSE).
