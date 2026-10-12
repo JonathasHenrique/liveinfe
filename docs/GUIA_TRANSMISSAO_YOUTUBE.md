@@ -48,7 +48,7 @@ Neste método, você usa a **Chave de Transmissão Padrão (Default Stream Key)*
 2. No canto superior direito, clique em **Criar** ➔ **Fazer transmissão ao vivo**.
 3. No menu lateral esquerdo, clique no primeiro ícone: **`((•))` Transmitir**.
 
-![YouTube Studio - Conectar Codificador e Chave Padrão](docs/images/01_youtube_studio_chave.png)
+![YouTube Studio - Conectar Codificador e Chave Padrão](images/01_youtube_studio_chave.png)
 
 4. No painel central, localize o campo **Chave da transmissão**:
    * Clique no botão **Copiar** (não precisa revelar a chave).
@@ -59,15 +59,20 @@ Neste método, você usa a **Chave de Transmissão Padrão (Default Stream Key)*
 3. Cole a chave copiada no campo correspondente.
 4. O app exibirá: `✅ Chave salva e configurada! Pronto para transmitir.`
 
+![Aplicativo LiveinFé - Tela Inicial e Modo Chave](images/04_liveinfe_app.png)
+
 > [!TIP]
 > **Você só precisa colar essa chave UMA ÚNICA VEZ.**  
 > O aplicativo memoriza a chave na memória segura do aparelho. Nos próximos cultos, é só abrir o app e tocar em **Iniciar Transmissão**.
 
 ### Passo 3: Iniciar e Encerrar
 * **Para Iniciar:** Toque no botão verde **AO VIVO NO YOUTUBE**. Em 3 a 5 segundos, o sinal entra no ar no canal!
+* **Controles na Tela:** Você pode travar toques com o cadeado (**Touch Lock**), alternar para lente Ultra-Wide 0.5x e ajustar o zoom com pinça.
 * **Para Encerrar:** Toque no botão vermelho **Encerrar Live**. O app corta o sinal e o YouTube encerra e salva o vídeo gravado.
 
-![Transmissão ao Vivo em Tempo Real no YouTube](docs/images/03_youtube_live_ao_vivo.png)
+![Aplicativo LiveinFé - Tela de Transmissão ao Vivo](images/05_liveinfe_preview.png)
+
+![Transmissão ao Vivo em Tempo Real no YouTube](images/03_youtube_live_ao_vivo.png)
 
 ---
 
@@ -110,7 +115,7 @@ Ao criar a transmissão agendada no YouTube Studio:
 
 Na tela de configurações da transmissão, verifique os seguintes ajustes:
 
-![Configurações da Transmissão e Integridade do Stream](docs/images/02_youtube_studio_configuracoes.png)
+![Configurações da Transmissão e Integridade do Stream](images/02_youtube_studio_configuracoes.png)
 
 1. **Ativar DVR (Recomendado: LIGADO):**
    * Permite que os espectadores que chegarem atrasados voltem o vídeo para assistir ao louvor ou ao início da pregação.
