@@ -22,7 +22,7 @@
 
 - [Download e Instalação Rápida](#-download-e-instala%C3%A7%C3%A3o-r%C3%A1pida)
 - [Visão Geral](#-vis%C3%A3o-geral)
-- [Principais Funcionalidades da Versão v1.1.2](#-principais-funcionalidades-da-vers%C3%A3o-v112)
+- [Principais Funcionalidades da Versão v1.1.3](#-principais-funcionalidades-da-vers%C3%A3o-v113)
 - [Arquitetura e Recursos Técnicos](#-arquitetura-e-recursos-t%C3%A9cnicos)
   - [1. Proporção 16:9 Nativa sem Distorções (OpenGL ES)](#1-propor%C3%A7%C3%A3o-169-nativa-sem-distor%C3%A7%C3%B5es-opengl-es)
   - [2. Captura de Áudio para Louvor e Mesas de Som (USB OTG)](#2-captura-de-%C3%A1udio-para-louvor-e-mesas-de-som-usb-otg)
@@ -50,10 +50,10 @@
 
 | Plataforma | Pacote / Arquivo | Download Direto | Versão Oficial |
 | :--- | :--- | :--- | :--- |
-| **Android** (Celular da Transmissão) | `liveinfe-v1.1.2.apk` | [⬇️ **Baixar APK Direto**](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.2.apk) | [v1.1.2 (Latest)](https://github.com/JonathasHenrique/liveinfe/releases/latest) |
+| **Android** (Celular da Transmissão) | `liveinfe-v1.1.3.apk` | [⬇️ **Baixar APK Direto**](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.3.apk) | [v1.1.3 (Latest)](https://github.com/JonathasHenrique/liveinfe/releases/latest) |
 
 > 📌 **Como instalar no celular da equipe de transmissão:**  
-> 1. Toque no link de download acima para baixar o arquivo `liveinfe-v1.1.2.apk`;  
+> 1. Toque no link de download acima para baixar o arquivo `liveinfe-v1.1.3.apk`;  
 > 2. Ao concluir o download, abra o arquivo no celular e autorize a instalação de fontes desconhecidas no navegador;  
 > 3. Abra o aplicativo, selecione o canal da igreja com 1 clique e inicie a transmissão com total estabilidade.  
 >  
@@ -72,10 +72,11 @@ O **LiveinFé** foi projetado para atender especificamente a esse cenário:
 
 ---
 
-## 🚀 Principais Funcionalidades da Versão v1.1.2
+## 🚀 Principais Funcionalidades da Versão v1.1.3
 
 | Funcionalidade | Descrição Técnica | Benefício Prático |
 | :--- | :--- | :--- |
+| **Interface Inteligente Contextual** | No Modo Chave, campos de título e presets são ocultados com aviso claro de gerenciamento no YouTube Studio. | Elimina dúvidas e confusões do operador durante a preparação do culto. |
 | **Serviço Persistente em Primeiro Plano** | Transmissão gerenciada por `StreamService` com notificação ativa no sistema. | A live permanece no ar caso o aparelho receba chamadas, a tela seja desligada ou outros apps sejam acessados. |
 | **Bitrate Adaptativo (ABR)** | Ajuste dinâmico de taxa de dados de acordo com a vazão de rede. | Previne congelamentos e quedas para os espectadores durante oscilações do sinal de internet. |
 | **Reconexão Automática Contínua** | Mecanismo de retomada de conexão sem limite de tentativas manuais. | Restabelece a transmissão de forma transparente caso ocorram quedas temporárias de rede. |

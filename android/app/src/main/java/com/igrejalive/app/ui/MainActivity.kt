@@ -107,18 +107,30 @@ class MainActivity : AppCompatActivity() {
         binding.etLiveTitle.setText("Culto de Celebração - $dateToday")
     }
 
+    private fun updateAuthModeVisibility(isGoogleMode: Boolean) {
+        if (isGoogleMode) {
+            binding.layoutStreamKeyMode.visibility = View.GONE
+            binding.layoutGoogleMode.visibility = View.VISIBLE
+            binding.layoutPresetsSection.visibility = View.VISIBLE
+            binding.layoutTitleAndPrivacySection.visibility = View.VISIBLE
+        } else {
+            binding.layoutStreamKeyMode.visibility = View.VISIBLE
+            binding.layoutGoogleMode.visibility = View.GONE
+            binding.layoutPresetsSection.visibility = View.GONE
+            binding.layoutTitleAndPrivacySection.visibility = View.GONE
+        }
+    }
+
     private fun loadSavedSettings() {
         // Carrega modo salvo (Padrão: Chave de Transmissão)
         val authMode = prefs.getString(PREF_AUTH_MODE, "stream_key")
-        if (authMode == "google") {
+        val isGoogle = (authMode == "google")
+        if (isGoogle) {
             binding.rbModeGoogleAccount.isChecked = true
-            binding.layoutStreamKeyMode.visibility = View.GONE
-            binding.layoutGoogleMode.visibility = View.VISIBLE
         } else {
             binding.rbModeStreamKey.isChecked = true
-            binding.layoutStreamKeyMode.visibility = View.VISIBLE
-            binding.layoutGoogleMode.visibility = View.GONE
         }
+        updateAuthModeVisibility(isGoogle)
 
         // Carrega Chave salva
         val savedKey = prefs.getString(PREF_STREAM_KEY, "") ?: ""
@@ -157,15 +169,9 @@ class MainActivity : AppCompatActivity() {
 
         // Alternância do Modo de Conexão (Chave x Google)
         binding.rgAuthMode.setOnCheckedChangeListener { _, checkedId ->
-            if (checkedId == R.id.rbModeStreamKey) {
-                binding.layoutStreamKeyMode.visibility = View.VISIBLE
-                binding.layoutGoogleMode.visibility = View.GONE
-                prefs.edit().putString(PREF_AUTH_MODE, "stream_key").apply()
-            } else {
-                binding.layoutStreamKeyMode.visibility = View.GONE
-                binding.layoutGoogleMode.visibility = View.VISIBLE
-                prefs.edit().putString(PREF_AUTH_MODE, "google").apply()
-            }
+            val isGoogle = (checkedId == R.id.rbModeGoogleAccount)
+            updateAuthModeVisibility(isGoogle)
+            prefs.edit().putString(PREF_AUTH_MODE, if (isGoogle) "google" else "stream_key").apply()
         }
 
         // Fonte de Áudio (Igreja x Mídia)
