@@ -131,17 +131,21 @@ Durante a transmissão, a tela do LiveinFé oferece todos os recursos profission
 
 ## 6. Configurações Importantes no YouTube Studio
 
-Na tela de configurações da transmissão, verifique os seguintes ajustes:
+Na aba **Configurações da transmissão**, certifique-se de configurar os seguintes interruptores:
 
-![Configurações da Transmissão e Integridade do Stream](images/02_youtube_studio_configuracoes.png)
+![Configurações da Transmissão - Início e Interrupção Automática](images/02_youtube_studio_configuracoes.png)
 
-1. **Ativar DVR (Recomendado: LIGADO):**
+1. **🟢 Ativar o início automático (LIGADO):**
+   * **Essencial para a igreja:** Faz com que o YouTube entre ao vivo para o público imediatamente assim que você apertar o botão no aplicativo no celular. Ninguém precisa ficar no computador para clicar em "Transmitir".
+2. **🟢 Ativar a interrupção automática (LIGADO):**
+   * **Essencial para a igreja:** Quando você segura o botão de encerrar no celular no final do culto, o YouTube finaliza a live sozinho e começa a processar a gravação para deixá-la salva no canal.
+3. **🟢 Ativar DVR (LIGADO):**
    * Permite que os espectadores que chegarem atrasados voltem o vídeo para assistir ao louvor ou ao início da pregação.
-2. **Latência da transmissão:**
-   * **Latência normal:** Melhor estabilidade para conexões de internet móveis.
+4. **⚪ Vídeo em 360° (DESLIGADO):**
+   * Mantenha sempre desligado (o LiveinFé já transmite em formato retangular widescreen 16:9 nativo de alta definição).
+5. **Latência da transmissão:**
    * **Baixa latência (Recomendado):** Permite interação rápida no chat (atraso de cerca de 4 a 6 segundos).
-3. **Definir transmissão como não listada ao acabar (Opcional):**
-   * Mantenha desligado se quiser que o culto continue público no canal após o encerramento.
+   * **Latência normal:** Melhor para conexões de internet mais lentas ou oscilantes.
 
 ---
 
