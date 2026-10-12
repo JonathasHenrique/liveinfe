@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -230,6 +231,11 @@ class MainActivity : AppCompatActivity() {
         // Modo manual RTMP (Fallback dialog)
         binding.btnManualRtmp.setOnClickListener {
             showManualRtmpDialog()
+        }
+
+        // Apoiar o LiveinFé (Doação Mercado Pago / Pix)
+        binding.btnDonate.setOnClickListener {
+            showDonationDialog()
         }
     }
 
@@ -466,6 +472,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun showDonationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Apoie o LiveinFé ☕")
+            .setMessage("O LiveinFé é 100% gratuito, sem anúncios e desenvolvido de coração para abençoar igrejas e ministérios.\n\nSua contribuição voluntária ajuda a manter o aplicativo atualizado e livre de custos para todos!")
+            .setPositiveButton("Apoiar via Mercado Pago / Pix") { _, _ ->
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://link.mercadopago.com.br/johntechdicas"))
+                startActivity(intent)
+            }
+            .setNegativeButton("Voltar", null)
             .show()
     }
 }
