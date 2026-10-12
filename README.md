@@ -22,7 +22,7 @@
 
 - [Download e Instalação Rápida](#-download-e-instala%C3%A7%C3%A3o-r%C3%A1pida)
 - [Visão Geral](#-vis%C3%A3o-geral)
-- [Principais Funcionalidades da Versão v1.1.1](#-principais-funcionalidades-da-vers%C3%A3o-v111)
+- [Principais Funcionalidades da Versão v1.1.2](#-principais-funcionalidades-da-vers%C3%A3o-v112)
 - [Arquitetura e Recursos Técnicos](#-arquitetura-e-recursos-t%C3%A9cnicos)
   - [1. Proporção 16:9 Nativa sem Distorções (OpenGL ES)](#1-propor%C3%A7%C3%A3o-169-nativa-sem-distor%C3%A7%C3%B5es-opengl-es)
   - [2. Captura de Áudio para Louvor e Mesas de Som (USB OTG)](#2-captura-de-%C3%A1udio-para-louvor-e-mesas-de-som-usb-otg)
