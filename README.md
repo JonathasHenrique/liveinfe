@@ -50,10 +50,10 @@
 
 | Plataforma | Pacote / Arquivo | Download Direto | Versão Oficial |
 | :--- | :--- | :--- | :--- |
-| **Android** (Celular da Transmissão) | `liveinfe-v1.1.1.apk` | [⬇️ **Baixar APK Direto**](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.1.apk) | [v1.1.1 (Latest)](https://github.com/JonathasHenrique/liveinfe/releases/latest) |
+| **Android** (Celular da Transmissão) | `liveinfe-v1.1.2.apk` | [⬇️ **Baixar APK Direto**](https://github.com/JonathasHenrique/liveinfe/releases/latest/download/liveinfe-v1.1.2.apk) | [v1.1.2 (Latest)](https://github.com/JonathasHenrique/liveinfe/releases/latest) |
 
 > 📌 **Como instalar no celular da equipe de transmissão:**  
-> 1. Toque no link de download acima para baixar o arquivo `liveinfe-v1.1.1.apk`;  
+> 1. Toque no link de download acima para baixar o arquivo `liveinfe-v1.1.2.apk`;  
 > 2. Ao concluir o download, abra o arquivo no celular e autorize a instalação de fontes desconhecidas no navegador;  
 > 3. Abra o aplicativo, selecione o canal da igreja com 1 clique e inicie a transmissão com total estabilidade.  
 >  
@@ -72,7 +72,7 @@ O **LiveinFé** foi projetado para atender especificamente a esse cenário:
 
 ---
 
-## 🚀 Principais Funcionalidades da Versão v1.1.1
+## 🚀 Principais Funcionalidades da Versão v1.1.2
 
 | Funcionalidade | Descrição Técnica | Benefício Prático |
 | :--- | :--- | :--- |
@@ -228,7 +228,7 @@ chmod +x gradlew
 
 O repositório dispõe de pipeline no **GitHub Actions** (`.github/workflows/build.yml`):
 - A cada alteração enviada ao branch principal, o ambiente compila e valida o projeto utilizando Java 21;
-- Ao registrar tags de versão (por exemplo, `v1.1.1`), o artefato `liveinfe-v1.1.1.apk` é compilado automaticamente e publicado na área de **Releases** do repositório para distribuição imediata.
+- Ao registrar tags de versão (por exemplo, `v1.1.2`), o artefato `liveinfe-v1.1.2.apk` é compilado automaticamente e publicado na área de **Releases** do repositório para distribuição imediata.
 
 ---
 
