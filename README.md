@@ -15,12 +15,16 @@
 
 [![Baixar APK Android](https://img.shields.io/badge/Download-Android_APK_(Latest)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases/latest)
 [![Ver Todas as Releases](https://img.shields.io/badge/Ver_Todas-Releases_no_GitHub-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JonathasHenrique/liveinfe/releases)
+[![Manual com Prints](https://img.shields.io/badge/Manual-Guia_de_Transmissão_(Prints)-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](docs/GUIA_TRANSMISSAO_YOUTUBE.md)
+
+> 📖 **Guia Visual Passo a Passo:** Consulte o [**Manual Completo de Transmissão com Prints**](docs/GUIA_TRANSMISSAO_YOUTUBE.md) para aprender a usar a chave e transmitir cultos programados com títulos e capas.
 
 ---
 
 ## 📋 Sumário
 
 - [Download e Instalação Rápida](#-download-e-instala%C3%A7%C3%A3o-r%C3%A1pida)
+- [Guia Visual de Transmissão Passo a Passo (Manual com Prints)](docs/GUIA_TRANSMISSAO_YOUTUBE.md)
 - [Visão Geral](#-vis%C3%A3o-geral)
 - [Principais Funcionalidades da Versão v1.1.3](#-principais-funcionalidades-da-vers%C3%A3o-v113)
 - [Arquitetura e Recursos Técnicos](#-arquitetura-e-recursos-t%C3%A9cnicos)
