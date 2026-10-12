@@ -9,10 +9,11 @@
 1. [Comparativo: Qual Modo Usar na Sua Igreja?](#1-comparativo-qual-modo-usar)
 2. [Método 1: Transmissão Rápida com Chave Padrão (Sem Agendamento)](#2-método-1-transmissão-rápida-com-chave-padrão)
 3. [Método 2: Transmissão Profissional Agendada (Com Título, Capa e Horário Marcado)](#3-método-2-transmissão-profissional-agendada)
-4. [Passo a Passo no Aplicativo LiveinFé](#4-passo-a-passo-no-aplicativo-liveinfé)
-5. [Configurações Importantes no YouTube Studio](#5-configurações-importantes-no-youtube-studio)
-6. [Checklist do Operador no Dia do Culto](#6-checklist-do-operador-no-dia-do-culto)
-7. [Dúvidas Frequentes e Solução de Problemas](#7-dúvidas-frequentes-e-solução-de-problemas)
+4. [Método 3: Transmissão com 1 Toque via Conta Google (OAuth Automático)](#4-método-3-transmissão-com-1-toque-via-conta-google)
+5. [Controles do Operador Durante a Live (Áudio, Zoom e Trava)](#5-controles-do-operador-durante-a-live)
+6. [Configurações Importantes no YouTube Studio](#6-configurações-importantes-no-youtube-studio)
+7. [Checklist do Operador no Dia do Culto](#7-checklist-do-operador-no-dia-do-culto)
+8. [Dúvidas Frequentes e Solução de Problemas](#8-dúvidas-frequentes-e-solução-de-problemas)
 
 ---
 
@@ -59,18 +60,15 @@ Neste método, você usa a **Chave de Transmissão Padrão (Default Stream Key)*
 3. Cole a chave copiada no campo correspondente.
 4. O app exibirá: `✅ Chave salva e configurada! Pronto para transmitir.`
 
-![Aplicativo LiveinFé - Tela Inicial e Modo Chave](images/04_liveinfe_app.png)
+![Aplicativo LiveinFé - Modo Chave com Aviso Contextual](images/04_liveinfe_modo_chave.png)
 
 > [!TIP]
 > **Você só precisa colar essa chave UMA ÚNICA VEZ.**  
-> O aplicativo memoriza a chave na memória segura do aparelho. Nos próximos cultos, é só abrir o app e tocar em **Iniciar Transmissão**.
+> O aplicativo memoriza a chave na memória segura do aparelho. Nos próximos cultos, é só abrir o app e tocar em **Entrar ao Vivo no YouTube**.
 
-### Passo 3: Iniciar e Encerrar
-* **Para Iniciar:** Toque no botão verde **AO VIVO NO YOUTUBE**. Em 3 a 5 segundos, o sinal entra no ar no canal!
-* **Controles na Tela:** Você pode travar toques com o cadeado (**Touch Lock**), alternar para lente Ultra-Wide 0.5x e ajustar o zoom com pinça.
-* **Para Encerrar:** Toque no botão vermelho **Encerrar Live**. O app corta o sinal e o YouTube encerra e salva o vídeo gravado.
-
-![Aplicativo LiveinFé - Tela de Transmissão ao Vivo](images/05_liveinfe_preview.png)
+### Passo 3: Iniciar a Transmissão
+* Toque no botão verde **ENTRAR AO VIVO NO YOUTUBE**.
+* Em cerca de 3 a 5 segundos, o sinal entra no ar no canal!
 
 ![Transmissão ao Vivo em Tempo Real no YouTube](images/03_youtube_live_ao_vivo.png)
 
@@ -91,27 +89,47 @@ Se a igreja deseja divulgar a transmissão dias antes no WhatsApp com a arte ofi
    * **Visibilidade:** Marque como **Público**.
 4. Clique em **Criar transmissão**.
 
----
-
-## 4. Como Importar a Chave da Live Agendada para o LiveinFé
-
-Existem duas formas fáceis de conectar a live programada ao LiveinFé:
-
-### Opção A: Usando a Chave Padrão na Live Agendada (Recomendado)
-Ao criar a transmissão agendada no YouTube Studio:
-1. Em **Configurações da transmissão**, no campo **Selecionar chave de transmissão**, escolha:  
-   👉 **`Default stream key (RTMP)`**.
-2. **Vantagem:** Como o seu LiveinFé já está salvo com essa chave, você **não precisa digitar nada no celular**!
-3. Na hora do culto, basta abrir o LiveinFé e iniciar a transmissão. O YouTube direcionará automaticamente o vídeo para a live agendada do dia!
-
-### Opção B: Criando uma Chave Exclusiva para o Evento
-1. Se preferir uma chave separada para uma conferência ou congresso, selecione **Criar nova chave de transmissão**.
-2. Dê um nome (ex: *"Congresso de Jovens"*).
-3. Copie a nova chave gerada e cole no LiveinFé no celular antes de iniciar.
+### Passo 2: Como Vincular ao LiveinFé sem Redigitar Chaves
+* Na tela da live agendada, em **Configurações da transmissão**, selecione a chave:  
+  👉 **`Default stream key (RTMP)`**.
+* **Como o LiveinFé já está configurado com essa mesma chave padrão**, você **não precisa alterar nada no celular**!
+* Na hora do culto, basta tocar em iniciar no app e o YouTube direcionará o sinal para o evento agendado do dia.
 
 ---
 
-## 5. Configurações Importantes no YouTube Studio
+## 4. Método 3: Transmissão com 1 Toque via Conta Google
+
+O LiveinFé também conta com integração nativa com a **YouTube Live Streaming API v3**.  
+Neste modo, o operador pode definir o título e a privacidade da live diretamente pelo celular:
+
+![Aplicativo LiveinFé - Modo Conta Google](images/05_liveinfe_modo_google.png)
+
+1. Marque a opção **🌐 Conta Google (1 Clique)**.
+2. Toque no canal da igreja conectado.
+3. Escolha um chip de atalho rápido (ex: *🔥 Culto de Celebração*, *🙏 Culto de Oração*) ou digite o título personalizado.
+4. Escolha a privacidade (**Público** para o culto oficial ou **Não Listado** para testes da equipe).
+5. Ao tocar em **ENTRAR AO VIVO**, o app se comunica via API com o YouTube, cria o evento, configura 1080p e inicia a transmissão automaticamente!
+
+![Criando Transmissão Automatizada na API do YouTube](images/06_liveinfe_criando_live.png)
+
+---
+
+## 5. Controles do Operador Durante a Live
+
+Durante a transmissão, a tela do LiveinFé oferece todos os recursos profissionais para o operador:
+
+![Controles da Câmera, Áudio e Trava no LiveinFé](images/07_liveinfe_camera_ao_vivo.png)
+
+* 🔴 **Indicador AO VIVO:** Mostra o tempo decorrido do culto em tempo real.
+* 🟢 **Monitor de Conexão e Bitrate:** Exibe a taxa de transferência real (ex: `3861 kbps • 30 FPS`) com indicador de integridade de rede.
+* 🎚️ **VU Meter de Áudio em Tempo Real:** Medição precisa em decibéis (`-12dB IGREJA`) para garantir que o som da mesa não esteja distorcendo nem baixo demais.
+* 🔍 **Controle de Lentes e Zoom:** Alternância rápida entre `.5x` (Ultra-Wide para enquadrar todo o altar e a congregação), `1x` e `2x`, além de controle suave por gesto de pinça.
+* 🔒 **Trava de Toques (Touch Lock):** Bloqueia a tela contra esbarrões no tripé. Para destravar, segure por 2 segundos.
+* 🛑 **Encerramento Seguro:** Botão com confirmação por pressão contínua (**SEGURE P/ ENCERRAR**) para impedir que o voluntário encerre o culto por acidente.
+
+---
+
+## 6. Configurações Importantes no YouTube Studio
 
 Na tela de configurações da transmissão, verifique os seguintes ajustes:
 
@@ -127,7 +145,7 @@ Na tela de configurações da transmissão, verifique os seguintes ajustes:
 
 ---
 
-## 6. Checklist do Operador no Dia do Culto
+## 7. Checklist do Operador no Dia do Culto
 
 Siga este passo a passo 15 minutos antes do início do culto:
 
@@ -136,18 +154,18 @@ Siga este passo a passo 15 minutos antes do início do culto:
 - [ ] **3. Bateria:** Conecte o carregador ao celular ou use um hub OTG com alimentação para evitar descarregar durante o culto.
 - [ ] **4. Modo Não Perturbe:** Ative o modo "Não Perturbe" no celular para não receber notificações na tela.
 - [ ] **5. Fonte de Áudio no App:** No LiveinFé, selecione **Som da Mesa (OTG / Louvor)**.
-- [ ] **6. Iniciar Transmissão:** Toque em **AO VIVO NO YOUTUBE** 2 minutos antes do prelúdio para verificar o sinal.
-- [ ] **7. Trava de Segurança:** Toque no ícone de cadeado (**Touch Lock**) para evitar toques acidentais durante o culto.
+- [ ] **6. Iniciar Transmissão:** Toque em **ENTRAR AO VIVO NO YOUTUBE** 2 minutos antes do prelúdio para verificar o sinal.
+- [ ] **7. Trava de Segurança:** Toque no ícone de cadeado (**Travar toques**) para evitar interrupções acidentais.
 
 ---
 
-## 7. Dúvidas Frequentes e Solução de Problemas
+## 8. Dúvidas Frequentes e Solução de Problemas
 
 ### ❓ Preciso ter um computador ligado durante a live?
 > **Não.** O celular envia o sinal diretamente aos servidores do Google via RTMP. O computador só é necessário se alguém quiser moderar comentários no chat.
 
 ### ❓ Como compartilho o link da transmissão com os membros?
-> No LiveinFé, toque no botão **Compartilhar Link**.  
+> No LiveinFé, toque no botão **Compartilhar Link do Culto**.  
 > Você pode divulgar o link permanente do canal:  
 > `https://www.youtube.com/@seucanal/live`  
 > Quem abrir esse link enquanto a live estiver rolando já entra direto na transmissão!
